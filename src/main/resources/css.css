@@ -1,0 +1,24 @@
+node {
+    fill-color: grey;
+    text-size: 15px;
+    text-background-mode: plain;
+    size-mode: fit;
+    size: 50px;
+}
+
+node.depart {
+    fill-color: blue;
+}
+
+node.arrivee {
+    fill-color: green;
+}
+
+edge {
+    text-size: 20px;
+}
+
+edge.chemin {
+    size: 3px;
+    fill-color: blue;
+}
