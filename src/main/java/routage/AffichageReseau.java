@@ -1,43 +1,38 @@
 package routage;
 
-import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.graph.Node;
+import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.ui.swing_viewer.ViewPanel;
+import org.graphstream.ui.view.View;
+import org.graphstream.ui.view.Viewer;
 
 import javax.swing.*;
-import java.io.File;
+import java.awt.*;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AffichageReseau {
+public class AffichageReseau extends JFrame{
 
     private static String css;
 
     private Reseau reseau;
+    private SingleGraph graph;
 
     public AffichageReseau() {
         css = "url(" + this.getClass().getClassLoader().getResource("css.css").toString() + ")";
         reseau = new Reseau("Réseau 1");
-
+        setTitle("Réseau 1");
         charger(getClass().getClassLoader().getResourceAsStream("reseau.data"));
+        initReseau();
 
-        System.setProperty("org.graphstream.ui", "swing");
-        SingleGraph graph = new SingleGraph("reseau");
-        graph.setAttribute("ui.stylesheet", css);
-        graph.setAttribute("ui.antialias");
-        graph.display();
-        for (Commutateur c : reseau.getCommutateurs()) {
-            graph.addNode(c.getNom());
-            graph.getNode(c.getNom()).setAttribute("ui.label", c.getNom());
-        }
+        Viewer viewer = graph.display(true);
+        View view = viewer.addDefaultView(false);
+        add((Component) view);
 
-        for (Commutateur c : reseau.getCommutateurs()) {
-            for (Liaison l : c.getLiaisons()) {
-                Node dep = graph.getNode(c.getNom()), dest = graph.getNode(l.getDestination().getNom());
-                graph.addEdge("l" + c.getNom() + l.getDestination().getNom(), dep, dest);
-                graph.getEdge("l" + c.getNom() + l.getDestination().getNom()).setAttribute("ui.label", l.getPoids());
-            }
-        }
+        setSize(600, 500);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     public void charger(InputStream inputStream) {
@@ -69,6 +64,26 @@ public class AffichageReseau {
             sc.close();
         } catch (Exception exc) {
             System.out.println("Erreur fichier " + exc);
+            exc.printStackTrace();
+        }
+    }
+
+    private void initReseau() {
+        System.setProperty("org.graphstream.ui", "swing");
+        graph = new SingleGraph("reseau");
+        graph.setAttribute("ui.stylesheet", css);
+        graph.setAttribute("ui.antialias");
+        for (Commutateur c : reseau.getCommutateurs()) {
+            graph.addNode(c.getNom());
+            graph.getNode(c.getNom()).setAttribute("ui.label", c.getNom());
+        }
+
+        for (Commutateur c : reseau.getCommutateurs()) {
+            for (Liaison l : c.getLiaisons()) {
+                Node dep = graph.getNode(c.getNom()), dest = graph.getNode(l.getDestination().getNom());
+                graph.addEdge("l" + c.getNom() + l.getDestination().getNom(), dep, dest);
+                graph.getEdge("l" + c.getNom() + l.getDestination().getNom()).setAttribute("ui.label", l.getPoids());
+            }
         }
     }
 
