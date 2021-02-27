@@ -10,12 +10,11 @@ public class Reseau {
     public Reseau(String nom){
         this.nom = nom;
         listComm = new ArrayList<>();
-        initReseau();
     }
 
     public void initReseau(){
         for (int i = 0; i < 4; i++) {
-            listComm.add(new Commutateur("c " + i));
+            listComm.add(new Commutateur("c" + i));
         }
 
         listComm.get(0).addLiaison(new Liaison(2, listComm.get(1)));

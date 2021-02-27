@@ -12,4 +12,8 @@ public class Liaison {
     public Commutateur getDestination() {
         return destination;
     }
+
+    public int getPoids() {
+        return poids;
+    }
 }

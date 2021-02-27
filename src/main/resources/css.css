@@ -1,9 +1,9 @@
 node {
     fill-color: grey;
-    text-size: 15px;
-    text-background-mode: plain;
-    size-mode: fit;
-    size: 50px;
+    text-size: 20px;
+    text-alignment: center;
+    text-offset: 0px, -7px;
+    size: 60px;
 }
 
 node.depart {
