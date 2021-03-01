@@ -1,14 +1,22 @@
-node {
-    fill-color: grey;
+node{
     text-size: 20px;
     text-alignment: center;
-    text-offset: 0px, -7px;
-    size: 60px;
+    size: 30px;
+}
+
+node.not_selected{
+    fill-color: grey;
+}
+
+node.selected{
+    fill-color: blue;
+
 }
 
 node.depart {
     fill-color: blue;
 }
+
 
 node.arrivee {
     fill-color: green;
