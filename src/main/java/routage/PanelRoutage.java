@@ -29,16 +29,17 @@ public class PanelRoutage extends JPanel {
         String previousDest = "";
         Route courant;
         String toDraw = "";
-        for (int i = 0; i < tabRoutage.size(); i++) {
-            courant = tabRoutage.get(i);
+        int nbLigne = 1;
+        for (Route route : tabRoutage) {
+            courant = route;
             if (courant.getDest().getNom().equals(previousDest)) {
                 toDraw += courant.getRouteur() + ":" + courant.getPoids() + "  ";
             } else {
-                graphics2D.drawString(toDraw, 30, 20 * (i));
+                graphics2D.drawString(toDraw, 30, 20 * (nbLigne++));
                 toDraw = courant.getDest() + "    " + courant.getRouteur() + ":" + courant.getPoids() + "  ";
             }
             previousDest = courant.getDest().getNom();
         }
-        graphics2D.drawString(toDraw, 30, 20 * (tabRoutage.size()));
+        graphics2D.drawString(toDraw, 30, 20 * (nbLigne));
     }
 }

@@ -14,6 +14,7 @@ import java.awt.event.MouseListener;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class AffichageReseau extends JFrame implements MouseListener {
@@ -49,51 +50,34 @@ public class AffichageReseau extends JFrame implements MouseListener {
     }
 
     private void initTabRoute() {
-        ArrayList<Commutateur> lComm = reseau.getCommutateurs();
+        LinkedList<Commutateur> lComm = new LinkedList<>( reseau.getCommutateurs());
         for (int i = 0; i < lComm.size(); i++) { // pour tout les éléments de la liste
-            Commutateur depart = lComm.remove(0);
+            System.out.println("lComm = " + lComm);
+            Commutateur depart = lComm.removeFirst();
+            System.out.println("depart = " + depart);
+            System.out.println("lComm = " + lComm);
             for (Iterator<Node> it = graph.getNode(depart.getNom()).getNeighborNodeIterator(); it.hasNext(); ) { // pour tous les voisins
                 Node nodeDepart = it.next();
-                System.out.println(depart.getNom() + " nodeDepart = " + nodeDepart.getId());
-                Commutateur voisin = lComm.remove(lComm.indexOf(reseau.getCommutateur(nodeDepart.getId())));
-
-                System.out.println("lComm = " + lComm);
-
+                Commutateur voisin = lComm.get(lComm.indexOf(reseau.getCommutateur(nodeDepart.getId())));
                 Dijkstra dijkstra = new Dijkstra(Dijkstra.Element.EDGE, null, "weight");
                 dijkstra.init(graph);
                 dijkstra.setSource(nodeDepart);
                 dijkstra.compute();
 
                 for (Commutateur c : lComm) { // pour toutes les destinations
-
-                    System.out.println("c = " + c);
-                    System.out.println("voisin = " + voisin);
-
                     Node nodeArrivee = graph.getNode(c.getNom());
-
-                    depart.addRoute(c, voisin, (int) (dijkstra.getPathLength(nodeArrivee) +
-                            ((int) graph.getNode(depart.getNom()).getEdgeBetween(nodeDepart).
-                                    getAttribute("weight"))));
-
-
+                    if(nodeArrivee != nodeDepart) {
+                        depart.addRoute(c, voisin, (int) (dijkstra.getPathLength(nodeArrivee) +
+                                ((int) graph.getNode(depart.getNom()).getEdgeBetween(nodeDepart).
+                                        getAttribute("weight"))));
+                    }
                 }
 
                 depart.addRoute(voisin, voisin, graph.getNode(depart.getNom()).getEdgeBetween(nodeDepart).
                         getAttribute("weight"));
-
-                System.out.println("depart.getRoutes() = " + depart.getRoutes());
-
-                lComm.add(lComm.size(), voisin);
             }
-
-            lComm.add(lComm.size(), depart);
+            lComm.add(depart);
         }
-
-        for (Commutateur c : lComm) {
-            System.out.println(lComm);
-            System.out.println(c.getNom() + " : " + c.getRoutes());
-        }
-
     }
 
 
@@ -167,6 +151,12 @@ public class AffichageReseau extends JFrame implements MouseListener {
             } else {
                 n.setAttribute("ui.class", "not_selected");
             }
+            Commutateur com = reseau.getCommutateur(node.getId());
+            remove(panelRoutage);
+            panelRoutage = new PanelRoutage(com.getRoutes(), com);
+            add(panelRoutage, BorderLayout.EAST);
+            repaint();
+            revalidate();
         }
     }
 
