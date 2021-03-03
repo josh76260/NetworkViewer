@@ -1,12 +1,22 @@
 package routage;
 
-public class Route {
+public class Route implements Comparable {
+    private Commutateur dest;
     private Commutateur routeur;
     private int poids;
 
-    public Route(Commutateur routeur, int poids) {
+    public Route(Commutateur dest, Commutateur routeur, int poids) {
+        this.dest = dest;
         this.routeur = routeur;
         this.poids = poids;
+    }
+
+    public Commutateur getDest() {
+        return dest;
+    }
+
+    public void setDest(Commutateur dest) {
+        this.dest = dest;
     }
 
     public Commutateur getRouteur() {
@@ -27,9 +37,11 @@ public class Route {
 
     @Override
     public String toString() {
-        return "Route{" +
-                "routeur=" + routeur +
-                ", poids=" + poids +
-                '}';
+        return dest.getNom() + "    " + routeur.getNom() + ":" + poids;
+    }
+
+    @Override
+    public int compareTo(Object autre) {
+        return this.dest.getNom().compareTo(((Route) autre).dest.getNom());
     }
 }

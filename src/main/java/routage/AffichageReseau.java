@@ -1,14 +1,11 @@
 package routage;
 
 import org.graphstream.algorithm.Dijkstra;
-import org.graphstream.graph.Element;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.Path;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.swingViewer.ViewPanel;
-import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.Viewer;
-import org.graphstream.ui.view.util.MouseManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,10 +23,12 @@ public class AffichageReseau extends JFrame implements MouseListener {
     private final Reseau reseau;
     private final ViewPanel view;
     private SingleGraph graph;
+    private PanelRoutage panelRoutage;
 
     public AffichageReseau() {
         css = "url(" + this.getClass().getClassLoader().getResource("css.css").toString() + ")";
         reseau = new Reseau("Réseau 1");
+
         setTitle("Réseau 1");
         charger(getClass().getClassLoader().getResourceAsStream("reseau.data"));
         initReseau();
@@ -40,7 +39,10 @@ public class AffichageReseau extends JFrame implements MouseListener {
         view.addMouseListener(this);
         add(view);
 
-        setSize(600, 600);
+        panelRoutage = new PanelRoutage(reseau.getCommutateur("s").getRoutes(), reseau.getCommutateur("s"));
+        add(panelRoutage, BorderLayout.EAST);
+
+        setSize(1000, 800);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -48,22 +50,50 @@ public class AffichageReseau extends JFrame implements MouseListener {
 
     private void initTabRoute() {
         ArrayList<Commutateur> lComm = reseau.getCommutateurs();
-        for (int i = 0; i < lComm.size(); i++) {
-            Commutateur depart = lComm.get(i);
-            for (Commutateur c : lComm) {
-                Node nodeDepart = graph.getNode(depart.getNom()), nodeArrivee = graph.getNode(c.getNom());
-                if (!nodeArrivee.getId().equals(nodeDepart.getId())) {
-                    Dijkstra dijkstra = new Dijkstra(Dijkstra.Element.EDGE, null, "weight");
-                    dijkstra.init(graph);
-                    dijkstra.setSource(nodeDepart);
-                    dijkstra.compute();
+        for (int i = 0; i < lComm.size(); i++) { // pour tout les éléments de la liste
+            Commutateur depart = lComm.remove(0);
+            for (Iterator<Node> it = graph.getNode(depart.getNom()).getNeighborNodeIterator(); it.hasNext(); ) { // pour tous les voisins
+                Node nodeDepart = it.next();
+                System.out.println(depart.getNom() + " nodeDepart = " + nodeDepart.getId());
+                Commutateur voisin = lComm.remove(lComm.indexOf(reseau.getCommutateur(nodeDepart.getId())));
 
-                    for(Path p : dijkstra.getAllPaths(nodeArrivee)) {
-                        depart.addRoute(c, reseau.getCommutateur(p.getNodePath().get(1).getId()), (int) dijkstra.getPathLength(nodeArrivee));
-                    }
+                System.out.println("lComm = " + lComm);
+
+                Dijkstra dijkstra = new Dijkstra(Dijkstra.Element.EDGE, null, "weight");
+                dijkstra.init(graph);
+                dijkstra.setSource(nodeDepart);
+                dijkstra.compute();
+
+                for (Commutateur c : lComm) { // pour toutes les destinations
+
+                    System.out.println("c = " + c);
+                    System.out.println("voisin = " + voisin);
+
+                    Node nodeArrivee = graph.getNode(c.getNom());
+
+                    depart.addRoute(c, voisin, (int) (dijkstra.getPathLength(nodeArrivee) +
+                            ((int) graph.getNode(depart.getNom()).getEdgeBetween(nodeDepart).
+                                    getAttribute("weight"))));
+
+
                 }
+
+                depart.addRoute(voisin, voisin, graph.getNode(depart.getNom()).getEdgeBetween(nodeDepart).
+                        getAttribute("weight"));
+
+                System.out.println("depart.getRoutes() = " + depart.getRoutes());
+
+                lComm.add(lComm.size(), voisin);
             }
+
+            lComm.add(lComm.size(), depart);
         }
+
+        for (Commutateur c : lComm) {
+            System.out.println(lComm);
+            System.out.println(c.getNom() + " : " + c.getRoutes());
+        }
+
     }
 
 

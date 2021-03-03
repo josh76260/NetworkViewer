@@ -14,12 +14,12 @@ node.selected{
 }
 
 node.depart {
-    fill-color: blue;
+    fill-color: green;
 }
 
 
 node.arrivee {
-    fill-color: green;
+    fill-color: red;
 }
 
 edge {

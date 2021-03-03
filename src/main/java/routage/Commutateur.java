@@ -1,19 +1,18 @@
 package routage;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class Commutateur {
     private ArrayList<Liaison> listLiaison;
     private ArrayList<Interface> listInterface;
     private String nom;
-    private HashMap<Commutateur, Route> tabRoutage;
+    private ArrayList<Route> tabRoutage;
 
     public Commutateur(String nom) {
         this.nom = nom;
         listLiaison = new ArrayList<>();
         listInterface = new ArrayList<>();
-        tabRoutage = new HashMap<>();
+        tabRoutage = new ArrayList<>();
     }
 
     public void addLiaison(Liaison liaison) {
@@ -29,10 +28,15 @@ public class Commutateur {
     }
 
     public void addRoute(Commutateur dest, Commutateur routeur, int poids) {
-        tabRoutage.putIfAbsent(dest, new Route(routeur, poids));
+        for (Route r:
+             tabRoutage) {
+            if(r.getRouteur() == routeur && r.getDest() == dest)return;
+        }
+        tabRoutage.add(new Route(dest, routeur, poids));
+        Collections.sort(tabRoutage);
     }
 
-    public HashMap<Commutateur, Route> getRoutes() {
+    public ArrayList<Route> getRoutes() {
         return tabRoutage;
     }
 
