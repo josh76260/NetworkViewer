@@ -1,4 +1,4 @@
-package routage;
+package routage.metier;
 
 public class Route implements Comparable {
     private Commutateur dest;

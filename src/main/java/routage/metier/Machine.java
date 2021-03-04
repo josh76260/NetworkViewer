@@ -1,4 +1,4 @@
-package routage;
+package routage.metier;
 
 public class Machine {
     private String nom;

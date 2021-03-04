@@ -1,18 +1,19 @@
-package routage;
+package routage.ihm;
 
 import org.graphstream.algorithm.Dijkstra;
 import org.graphstream.graph.Node;
-import org.graphstream.graph.Path;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.ui.swingViewer.ViewPanel;
 import org.graphstream.ui.view.Viewer;
+import routage.metier.Commutateur;
+import routage.metier.Liaison;
+import routage.metier.Reseau;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -35,13 +36,17 @@ public class AffichageReseau extends JFrame implements MouseListener {
         initReseau();
         initTabRoute();
 
-        Viewer viewer = graph.display(true);
+        Viewer viewer = new Viewer(graph, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
+        viewer.enableAutoLayout();
         view = viewer.addDefaultView(false);
         view.addMouseListener(this);
         add(view);
 
+        add(new Menu(this), BorderLayout.NORTH);
+
         panelRoutage = new PanelRoutage(reseau.getCommutateur("s").getRoutes(), reseau.getCommutateur("s"));
         add(panelRoutage, BorderLayout.EAST);
+
 
         setSize(1000, 800);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -50,12 +55,9 @@ public class AffichageReseau extends JFrame implements MouseListener {
     }
 
     private void initTabRoute() {
-        LinkedList<Commutateur> lComm = new LinkedList<>( reseau.getCommutateurs());
+        LinkedList<Commutateur> lComm = new LinkedList<>(reseau.getCommutateurs());
         for (int i = 0; i < lComm.size(); i++) { // pour tout les éléments de la liste
-            System.out.println("lComm = " + lComm);
             Commutateur depart = lComm.removeFirst();
-            System.out.println("depart = " + depart);
-            System.out.println("lComm = " + lComm);
             for (Iterator<Node> it = graph.getNode(depart.getNom()).getNeighborNodeIterator(); it.hasNext(); ) { // pour tous les voisins
                 Node nodeDepart = it.next();
                 Commutateur voisin = lComm.get(lComm.indexOf(reseau.getCommutateur(nodeDepart.getId())));
@@ -66,7 +68,7 @@ public class AffichageReseau extends JFrame implements MouseListener {
 
                 for (Commutateur c : lComm) { // pour toutes les destinations
                     Node nodeArrivee = graph.getNode(c.getNom());
-                    if(nodeArrivee != nodeDepart) {
+                    if (nodeArrivee != nodeDepart) {
                         depart.addRoute(c, voisin, (int) (dijkstra.getPathLength(nodeArrivee) +
                                 ((int) graph.getNode(depart.getNom()).getEdgeBetween(nodeDepart).
                                         getAttribute("weight"))));
@@ -144,19 +146,19 @@ public class AffichageReseau extends JFrame implements MouseListener {
         for (Iterator<Node> it = graph.getNodeIterator(); it.hasNext(); ) {
             Node n = it.next();
 
-            Node node = (Node) view.findNodeOrSpriteAt(me.getX(), me.getY());
+            Node node = (Node) view.findNodeOrSpriteAt(me.getX(), me.getY()-40);
             if (node != null && node.getId().equals(n.getId())) {
                 String att = node.getAttribute("ui.class").equals("selected") ? "not_selected" : "selected";
                 node.setAttribute("ui.class", att);
+                Commutateur com = reseau.getCommutateur(node.getId());
+                remove(panelRoutage);
+                panelRoutage = new PanelRoutage(com.getRoutes(), com);
+                add(panelRoutage, BorderLayout.EAST);
+                repaint();
+                revalidate();
             } else {
                 n.setAttribute("ui.class", "not_selected");
             }
-            Commutateur com = reseau.getCommutateur(node.getId());
-            remove(panelRoutage);
-            panelRoutage = new PanelRoutage(com.getRoutes(), com);
-            add(panelRoutage, BorderLayout.EAST);
-            repaint();
-            revalidate();
         }
     }
 

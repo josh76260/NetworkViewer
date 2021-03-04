@@ -1,4 +1,4 @@
-package routage;
+package routage.metier;
 
 import java.util.ArrayList;
 

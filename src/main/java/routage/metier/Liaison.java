@@ -1,4 +1,4 @@
-package routage;
+package routage.metier;
 
 public class Liaison {
     private int poids;

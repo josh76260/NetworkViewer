@@ -1,11 +1,11 @@
-package routage;
+package routage.ihm;
+
+import routage.metier.Commutateur;
+import routage.metier.Route;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 public class PanelRoutage extends JPanel {
     private final ArrayList<Route> tabRoutage;

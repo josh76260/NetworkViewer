@@ -1,4 +1,4 @@
-package routage;
+package routage.metier;
 
 public class Interface {
     private int port;
