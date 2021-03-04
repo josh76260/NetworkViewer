@@ -43,4 +43,8 @@ public class Commutateur {
     public String toString(){
         return nom;
     }
+
+    public void delLiaison(Liaison l) {
+        if (l != null)listLiaison.remove(l);
+    }
 }

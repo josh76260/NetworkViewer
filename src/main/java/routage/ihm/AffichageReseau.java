@@ -23,7 +23,7 @@ public class AffichageReseau extends JFrame implements MouseListener {
     private static String css;
 
     private final Reseau reseau;
-    private final ViewPanel view;
+    private ViewPanel view;
     private SingleGraph graph;
     private PanelRoutage panelRoutage;
 
@@ -35,18 +35,15 @@ public class AffichageReseau extends JFrame implements MouseListener {
         charger(getClass().getClassLoader().getResourceAsStream("reseau.data"));
         initReseau();
         initTabRoute();
-
-        Viewer viewer = new Viewer(graph, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
-        viewer.enableAutoLayout();
-        view = viewer.addDefaultView(false);
-        view.addMouseListener(this);
-        add(view);
+        initView();
 
         add(new Menu(this), BorderLayout.NORTH);
 
         panelRoutage = new PanelRoutage(reseau.getCommutateur("s").getRoutes(), reseau.getCommutateur("s"));
-        add(panelRoutage, BorderLayout.EAST);
-
+        JPanel panelEst = new JPanel(new GridLayout(2,1));
+        panelEst.add(panelRoutage);
+        panelEst.add(new PanelDel(this));
+        add(panelEst, BorderLayout.EAST);
 
         setSize(1000, 800);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -82,7 +79,6 @@ public class AffichageReseau extends JFrame implements MouseListener {
         }
     }
 
-
     public void charger(InputStream inputStream) {
         String[] tabData;
         Commutateur c1 = null, c2 = null;
@@ -93,7 +89,7 @@ public class AffichageReseau extends JFrame implements MouseListener {
                 tabData = ligne.split(":");
 
                 if (tabData[0].equals("C")) {
-                    reseau.getCommutateurs().add(new Commutateur(tabData[1]));
+                    reseau.ajouterCommutateur(new Commutateur(tabData[1]));
                 }
 
                 if (tabData[0].equals("+")) {
@@ -137,8 +133,30 @@ public class AffichageReseau extends JFrame implements MouseListener {
         }
     }
 
+    private void initView() {
+
+        if(view != null)remove(view);
+
+        Viewer viewer = new Viewer(graph, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
+        viewer.enableAutoLayout();
+        view = viewer.addDefaultView(false);
+        view.addMouseListener(this);
+        add(view);
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(AffichageReseau::new);
+    }
+
+    public Reseau getReseau() {
+        return reseau;
+    }
+
+    public void majIHM(){
+        initReseau();
+        initView();
+        repaint();
+        revalidate();
     }
 
     @Override
