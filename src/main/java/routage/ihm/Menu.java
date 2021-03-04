@@ -1,46 +1,27 @@
 package routage.ihm;
 
-import routage.ihm.action.ActionLoad;
-import routage.ihm.action.ActionSave;
+import routage.ihm.action.*;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Menu extends JToolBar {
-    private JButton charger;
-    private JButton sauvegarder;
-    private JButton ajouterCommutateur;
-    private JButton supprCommutateur;
-    private JButton ajouterLiaison;
-    private JButton supprLiaison;
 
     public Menu(AffichageReseau parent) {
         super();
         setPreferredSize(new Dimension(parent.getWidth(), 40));
-        charger = new JButton(new ActionLoad());
-        sauvegarder = new JButton(new ActionSave());
-        sauvegarder.setToolTipText("");
-        ajouterCommutateur = new JButton(new ImageIcon(getClass().getClassLoader().getResource("images/plus.png")));
-        ajouterCommutateur.setToolTipText("Ajouter un commutateur");
-        supprCommutateur = new JButton(new ImageIcon(getClass().getClassLoader().getResource("images/minus.png")));
-        supprCommutateur.setToolTipText("Supprimer un commutateur");
-        ajouterLiaison = new JButton(new ImageIcon(getClass().getClassLoader().getResource("images/addarc.png")));
-        ajouterLiaison.setToolTipText("Ajouter une route");
-        supprLiaison = new JButton(new ImageIcon(getClass().getClassLoader().getResource("images/delarc.png")));
-        supprLiaison.setToolTipText("Supprimer une route");
-
         addSeparator();
-        add(charger);
+        add(new JButton(new ActionLoad()));
         addSeparator();
-        add(sauvegarder);
+        add(new JButton(new ActionSave()));
         addSeparator();
-        add(ajouterCommutateur);
+        add(new JButton(new ActionAdd(parent)));
         addSeparator();
-        add(supprCommutateur);
+        add(new JButton(new ActionDel()));
         addSeparator();
-        add(ajouterLiaison);
+        add(new JButton(new ActionAddArc()));
         addSeparator();
-        add(supprLiaison);
+        add(new JButton(new ActionDelArc()));
 
         setFloatable(false);
         setVisible(true);
