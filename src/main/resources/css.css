@@ -1,6 +1,7 @@
 node{
     text-size: 20px;
     text-alignment: center;
+    text-offset: 0px, -7px;
     size: 30px;
 }
 

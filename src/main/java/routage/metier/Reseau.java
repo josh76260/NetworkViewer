@@ -10,6 +10,7 @@ public class Reseau {
     public Reseau(String nom) {
         this.nom = nom;
         listComm = new ArrayList<>();
+        Liaison.resetLiaison();
     }
 
     public ArrayList<Commutateur> getCommutateurs() {
@@ -38,11 +39,11 @@ public class Reseau {
         assert commutateur != null;
         for (Commutateur c : listComm) {
             assert c != commutateur;
-            for (int i = 0; i < c.getLiaisons().size(); i++) {
-                Liaison l = c.getLiaisons().get(i);
+            for (int i = 0; i < Liaison.getLiaisons().size(); i++) {
+                Liaison l = Liaison.getLiaisons().get(i);
 
-                if (l.getDestination() == commutateur) {
-                    c.delLiaison(l);
+                if (l.getCommutateurB() == commutateur || l.getCommutateurA() == commutateur) {
+                    Liaison.supprLiaison(c, commutateur);
                 }
             }
         }
