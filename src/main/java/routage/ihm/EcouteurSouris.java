@@ -37,9 +37,7 @@ public class EcouteurSouris extends MouseAdapter {
                 String att = node.getAttribute("ui.class").equals("selected") ? "not_selected" : "selected";
                 node.setAttribute("ui.class", att);
                 Commutateur com = reseau.getCommutateur(node.getId());
-                panelEst.remove(panelRoutage);
-                panelRoutage = new PanelRoutage(com.getRoutes(), com);
-                panelEst.add(panelRoutage, BorderLayout.EAST, 0);
+                parent.setPanelRoutage(new PanelRoutage(com.getRoutes(), com));
                 parent.repaint();
                 parent.revalidate();
             } else {

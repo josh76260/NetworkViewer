@@ -29,7 +29,7 @@ public class AffichageReseau extends JFrame {
     private Reseau reseau;
     private ViewPanel view;
     private SingleGraph graph;
-    private final PanelRoutage panelRoutage;
+    private PanelRoutage panelRoutage;
     private final JPanel panelEst;
 
     public AffichageReseau() {
@@ -205,6 +205,12 @@ public class AffichageReseau extends JFrame {
 
     public JPanel getPanelRoutage() {
         return panelRoutage;
+    }
+
+    public void setPanelRoutage(PanelRoutage newPanelRoutage) {
+        panelEst.remove(panelRoutage);
+        panelRoutage = newPanelRoutage;
+        panelEst.add(panelRoutage, BorderLayout.EAST, 0);
     }
 }
 
