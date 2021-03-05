@@ -3,33 +3,22 @@ package routage.metier;
 import java.util.*;
 
 public class Commutateur {
-    private ArrayList<Liaison> listLiaison;
     private ArrayList<Interface> listInterface;
     private String nom;
     private ArrayList<Route> tabRoutage;
 
     public Commutateur(String nom) {
         this.nom = nom;
-        listLiaison = new ArrayList<>();
         listInterface = new ArrayList<>();
         tabRoutage = new ArrayList<>();
-    }
-
-    public void addLiaison(Liaison liaison) {
-        listLiaison.add(liaison);
     }
 
     public String getNom() {
         return nom;
     }
 
-    public ArrayList<Liaison> getLiaisons() {
-        return listLiaison;
-    }
-
     public void addRoute(Commutateur dest, Commutateur routeur, int poids) {
-        for (Route r:
-             tabRoutage) {
+        for (Route r: tabRoutage) {
             if(r.getRouteur() == routeur && r.getDest() == dest)return;
         }
         tabRoutage.add(new Route(dest, routeur, poids));
@@ -44,7 +33,15 @@ public class Commutateur {
         return nom;
     }
 
-    public void delLiaison(Liaison l) {
-        if (l != null)listLiaison.remove(l);
+    @Override
+    public boolean equals(Object obj) {
+        if(obj != null) {
+            return nom.equals(((Commutateur) obj).getNom());
+        }
+        return false;
+    }
+
+    public void delRoutes() {
+        tabRoutage = new ArrayList<>();
     }
 }

@@ -16,7 +16,7 @@ public class PanelAdd extends JPanel implements PanelSaisie {
 
         c.fill = GridBagConstraints.CENTER;
         c.gridwidth = 2;
-        c.insets = new Insets(0, 0, 25, 0);
+        c.insets = new Insets(0, 0, 35, 0);
 
 
         add(new JLabel("Ajout d'un commutateur"), c);
