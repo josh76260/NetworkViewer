@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 
 public class ActionCalcChemin extends AbstractAction {
 
-    private AffichageReseau ihm;
+    private final AffichageReseau ihm;
 
     public ActionCalcChemin(AffichageReseau ihm) {
         this.ihm = ihm;

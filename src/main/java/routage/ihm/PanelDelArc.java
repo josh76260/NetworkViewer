@@ -4,11 +4,10 @@ import routage.metier.Commutateur;
 import routage.metier.Liaison;
 
 import javax.swing.*;
-import javax.xml.stream.events.Comment;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class PanelDelArc extends JPanel implements PanelSaisie {
+public class PanelDelArc extends JPanel {
     private final AffichageReseau ihm;
     private JComboBox<Commutateur> lDep;
     private JComboBox<Commutateur> lArr;
@@ -39,10 +38,7 @@ public class PanelDelArc extends JPanel implements PanelSaisie {
         c.gridx = 1;
         add(lDep, c);
 
-        ArrayList<Commutateur> lTemp = new ArrayList<>();
-        for (Commutateur comm : Liaison.getVoisins(((Commutateur) lDep.getSelectedItem()))) {
-            lTemp.add(comm);
-        }
+        ArrayList<Commutateur> lTemp = new ArrayList<>(Liaison.getVoisins(((Commutateur) lDep.getSelectedItem())));
         c = new GridBagConstraints();
 
         if (lArr != null) remove(lArr);

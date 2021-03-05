@@ -22,6 +22,10 @@ public class Menu extends JToolBar {
         add(new JButton(new ActionAddArc(parent)));
         addSeparator();
         add(new JButton(new ActionDelArc(parent)));
+        addSeparator();
+        add(new JButton(new ActionCalcChemin(parent)));
+        addSeparator();
+        add(new JButton(new ActionReset(parent)));
 
         setFloatable(false);
         setVisible(true);

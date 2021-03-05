@@ -5,9 +5,9 @@ import routage.metier.Commutateur;
 import javax.swing.*;
 import java.awt.*;
 
-public class PanelAdd extends JPanel implements PanelSaisie {
-    private JTextField nom;
-    private AffichageReseau ihm;
+public class PanelAdd extends JPanel {
+    private final JTextField nom;
+    private final AffichageReseau ihm;
 
     public PanelAdd(AffichageReseau ihm) {
         super(new GridBagLayout());
@@ -29,7 +29,7 @@ public class PanelAdd extends JPanel implements PanelSaisie {
 
         add(new JLabel("nom : "), c);
 
-        nom = new JTextField(20);
+        nom = new JTextField(15);
         c.gridx = 1;
         add(nom, c);
 

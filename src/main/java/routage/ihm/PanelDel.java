@@ -5,9 +5,9 @@ import routage.metier.Commutateur;
 import javax.swing.*;
 import java.awt.*;
 
-public class PanelDel extends JPanel implements PanelSaisie{
+public class PanelDel extends JPanel {
     private final AffichageReseau ihm;
-    private JComboBox<Commutateur> lComm; 
+    private final JComboBox<Commutateur> lComm;
     
 
     public PanelDel(AffichageReseau ihm){
@@ -18,7 +18,6 @@ public class PanelDel extends JPanel implements PanelSaisie{
         c.fill = GridBagConstraints.CENTER;
         c.gridwidth = 2;
         c.insets = new Insets(0, 0, 35, 0);
-
 
         add(new JLabel("Suppression d'un commutateur "), c);
 

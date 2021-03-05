@@ -7,11 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class PanelAddArc extends JPanel implements PanelSaisie {
+public class PanelAddArc extends JPanel {
     private final AffichageReseau ihm;
-    private JComboBox<Commutateur> lDep;
-    private JComboBox<Commutateur> lArr;
-    private JTextField poids;
+    private final JComboBox<Commutateur> lDep;
+    private final JComboBox<Commutateur> lArr;
+    private final JTextField poids;
 
 
     public PanelAddArc(AffichageReseau ihm) {
@@ -43,8 +43,6 @@ public class PanelAddArc extends JPanel implements PanelSaisie {
         ArrayList<Commutateur> lTemp = new ArrayList<>(ihm.getReseau().getCommutateurs());
         c = new GridBagConstraints();
 
-        if (lArr != null) remove(lArr);
-
         c.gridx = 0;
         c.gridy = 6;
         c.insets = new Insets(0, 0, 25, 0);
@@ -60,11 +58,13 @@ public class PanelAddArc extends JPanel implements PanelSaisie {
 
         c = new GridBagConstraints();
 
+        c.insets = new Insets(0, 0, 25, 0);
+
         c.gridx = 0;
         c.gridy = 9;
         add(new JLabel("poids : "), c);
 
-        poids = new JTextField(20);
+        poids = new JTextField(15);
         c.gridx = 1;
 
         add(poids, c);
