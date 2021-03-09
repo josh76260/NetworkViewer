@@ -22,18 +22,7 @@ public class ActionReset extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        Graph graph = ihm.getGraph();
-        for (Iterator<Node> it = graph.nodes().iterator(); it.hasNext(); ) {
-            Node n = it.next();
-            if(n.getAttribute("ui.class").equals("depart") || n.getAttribute("ui.class").equals("arrivee")){
-                n.setAttribute("ui.class", "machine");
-            }
-
-            if(!n.getAttribute("ui.class").equals("machine")){
-                n.setAttribute("ui.class", "not_selected");
-            }
-        }
-        graph.edges().forEach(e -> e.removeAttribute("ui.class"));
+        ihm.resetUI();
         ihm.setPanelSaisie(new JPanel());
     }
 }

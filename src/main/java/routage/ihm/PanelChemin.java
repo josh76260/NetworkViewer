@@ -98,6 +98,7 @@ public class PanelChemin extends JPanel {
 
             poids.setText(dijkstra.getPathLength(arrivee) + "");
 
+            ihm.resetUI();
             depart.setAttribute("ui.class", "depart");
             arrivee.setAttribute("ui.class", "arrivee");
 
