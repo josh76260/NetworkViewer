@@ -49,7 +49,6 @@ public class Reseau {
     }
 
     public void supprimerCommutateur(Commutateur commutateur) {
-        assert commutateur != null;
         for (Liable liable : getLiables()) {
             for (int i = 0; i < Liaison.getLiaisons().size(); i++) {
                 Liaison l = Liaison.getLiaisons().get(i);
@@ -62,6 +61,19 @@ public class Reseau {
         listComm.remove(commutateur);
     }
 
+    public void supprimerMachine(Machine machine) {
+        for (Liable liable : getLiables()) {
+            for (int i = 0; i < Liaison.getLiaisons().size(); i++) {
+                Liaison l = Liaison.getLiaisons().get(i);
+
+                if (l.getLiableB() == machine || l.getLiableA() == machine) {
+                    Liaison.supprLiaison(liable, machine);
+                }
+            }
+        }
+        listMachine.remove(machine);
+    }
+
     public List<Liable> getLiables() {
         return Stream.concat(listComm.stream(), listMachine.stream())
                 .collect(Collectors.toList());
@@ -69,6 +81,11 @@ public class Reseau {
 
     public ArrayList<Machine> getMachines() {
         return listMachine;
+    }
+
+    public void supprimerLiable(Liable liable) {
+            if(listMachine.contains(liable))supprimerMachine((Machine) liable);
+            else supprimerCommutateur((Commutateur) liable);
     }
 }
 

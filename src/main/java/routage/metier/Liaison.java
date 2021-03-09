@@ -32,11 +32,11 @@ public class Liaison {
 
     }
 
-    public static ArrayList<Commutateur> getVoisins(Commutateur commutateur) {
-        ArrayList<Commutateur> lReturn = new ArrayList<>();
+    public static ArrayList<Liable> getVoisins(Liable liable) {
+        ArrayList<Liable> lReturn = new ArrayList<>();
         for (Liaison l : liaisonsDejaExistantes) {
-            if (l.getLiableA() == commutateur) lReturn.add((Commutateur) l.getLiableB());
-            if (l.getLiableB() == commutateur) lReturn.add((Commutateur) l.getLiableA());
+            if (l.getLiableA() == liable) lReturn.add(l.getLiableB());
+            if (l.getLiableB() == liable) lReturn.add(l.getLiableA());
         }
 
         return lReturn;

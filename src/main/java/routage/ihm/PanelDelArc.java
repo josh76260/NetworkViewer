@@ -1,6 +1,7 @@
 package routage.ihm;
 
 import routage.metier.Commutateur;
+import routage.metier.Liable;
 import routage.metier.Liaison;
 
 import javax.swing.*;
@@ -9,8 +10,8 @@ import java.util.ArrayList;
 
 public class PanelDelArc extends JPanel {
     private final AffichageReseau ihm;
-    private JComboBox<Commutateur> lDep;
-    private JComboBox<Commutateur> lArr;
+    private JComboBox<Liable> lDep;
+    private JComboBox<Liable> lArr;
 
     public PanelDelArc(AffichageReseau ihm) {
         super(new GridBagLayout());
@@ -32,13 +33,13 @@ public class PanelDelArc extends JPanel {
 
         add(new JLabel("Départ : "), c);
 
-        lDep = new JComboBox<>(ihm.getReseau().getCommutateurs().toArray(new Commutateur[0]));
+        lDep = new JComboBox<>(ihm.getReseau().getLiables().toArray(new Liable[0]));
         lDep.setPreferredSize(new Dimension(50, 20));
         lDep.addActionListener(ie -> modifArrivee());
         c.gridx = 1;
         add(lDep, c);
 
-        ArrayList<Commutateur> lTemp = new ArrayList<>(Liaison.getVoisins(((Commutateur) lDep.getSelectedItem())));
+        ArrayList<Liable> lTemp = new ArrayList<>(Liaison.getVoisins(((Liable) lDep.getSelectedItem())));
         c = new GridBagConstraints();
 
         if (lArr != null) remove(lArr);
@@ -48,7 +49,7 @@ public class PanelDelArc extends JPanel {
         c.insets = new Insets(0, 0, 25, 0);
 
         add(new JLabel("Arrivée : "), c);
-        lArr = new JComboBox<>(lTemp.toArray(new Commutateur[0]));
+        lArr = new JComboBox<>(lTemp.toArray(new Liable[0]));
         lArr.setPreferredSize(new Dimension(50, 20));
         c.gridx = 1;
 
@@ -66,16 +67,16 @@ public class PanelDelArc extends JPanel {
     }
 
     private void supprimerRoute() {
-        Commutateur c = ((Commutateur) lDep.getSelectedItem());
-        Liaison.supprLiaison(c, (Commutateur) lArr.getSelectedItem());
+        Liable l = ((Liable) lDep.getSelectedItem());
+        Liaison.supprLiaison(l, (Liable) lArr.getSelectedItem());
         ihm.majIHM();
     }
 
     private void modifArrivee() {
         lArr.removeAllItems();
 
-        for (Commutateur comm : Liaison.getVoisins(((Commutateur) lDep.getSelectedItem()))) {
-            lArr.addItem(comm);
+        for (Liable liable : Liaison.getVoisins(((Liable) lDep.getSelectedItem()))) {
+            lArr.addItem(liable);
         }
 
         repaint();

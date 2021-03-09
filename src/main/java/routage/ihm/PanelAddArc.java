@@ -1,7 +1,9 @@
 package routage.ihm;
 
 import routage.metier.Commutateur;
+import routage.metier.Liable;
 import routage.metier.Liaison;
+import routage.metier.Machine;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,8 +11,8 @@ import java.util.ArrayList;
 
 public class PanelAddArc extends JPanel {
     private final AffichageReseau ihm;
-    private final JComboBox<Commutateur> lDep;
-    private final JComboBox<Commutateur> lArr;
+    private final JComboBox<Liable> lDep;
+    private final JComboBox<Liable> lArr;
     private final JTextField poids;
 
 
@@ -34,23 +36,23 @@ public class PanelAddArc extends JPanel {
 
         add(new JLabel("Départ : "), c);
 
-        lDep = new JComboBox<>(ihm.getReseau().getCommutateurs().toArray(new Commutateur[0]));
+        lDep = new JComboBox<>(ihm.getReseau().getLiables().toArray(new Liable[0]));
         lDep.setPreferredSize(new Dimension(50, 20));
         lDep.addActionListener(ie -> modifArrivee());
         c.gridx = 1;
         add(lDep, c);
 
-        ArrayList<Commutateur> lTemp = new ArrayList<>(ihm.getReseau().getCommutateurs());
+        ArrayList<Liable> lTemp = new ArrayList<>(ihm.getReseau().getLiables());
         c = new GridBagConstraints();
 
         c.gridx = 0;
         c.gridy = 6;
         c.insets = new Insets(0, 0, 25, 0);
 
-        lTemp.removeAll(Liaison.getVoisins((Commutateur) lDep.getSelectedItem()));
+        lTemp.removeAll(Liaison.getVoisins((Liable) lDep.getSelectedItem()));
         lTemp.remove(lDep.getSelectedItem());
         add(new JLabel("Arrivée : "), c);
-        lArr = new JComboBox<>(lTemp.toArray(new Commutateur[0]));
+        lArr = new JComboBox<>(lTemp.toArray(new Liable[0]));
         lArr.setPreferredSize(new Dimension(50, 20));
         c.gridx = 1;
 
@@ -82,20 +84,24 @@ public class PanelAddArc extends JPanel {
 
     private void modifArrivee() {
         lArr.removeAllItems();
-        ArrayList<Commutateur> lTemp = new ArrayList<>(ihm.getReseau().getCommutateurs());
-        lTemp.removeAll(Liaison.getVoisins((Commutateur) lDep.getSelectedItem()));
-        lTemp.remove(lDep.getSelectedItem());
-        for (Commutateur c: lTemp) {
-            lArr.addItem(c);
+        ArrayList<Liable> lTemp = new ArrayList<>(ihm.getReseau().getLiables());
+        lTemp.removeAll(Liaison.getVoisins((Liable) lDep.getSelectedItem()));
+        if (lDep.getSelectedItem().getClass() == Machine.class) {
+            lTemp.removeAll(ihm.getReseau().getMachines());
+        } else {
+            lTemp.remove(lDep.getSelectedItem());
+        }
+        for (Liable l : lTemp) {
+            lArr.addItem(l);
         }
         repaint();
         revalidate();
     }
 
     private void ajouterRoute() {
-        if(!poids.getText().equals("") && poids.getText().matches("^\\p{Digit}+$")) {
-            Commutateur c = (Commutateur) lDep.getSelectedItem();
-            Liaison.creerLiaison(Integer.parseInt(poids.getText()), c, (Commutateur) lArr.getSelectedItem());
+        if (!poids.getText().equals("") && poids.getText().matches("^\\p{Digit}+$")) {
+            Liable l = (Liable) lDep.getSelectedItem();
+            Liaison.creerLiaison(Integer.parseInt(poids.getText()), l, (Liable) lArr.getSelectedItem());
             ihm.majIHM();
         }
     }

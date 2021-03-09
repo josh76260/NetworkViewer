@@ -37,7 +37,9 @@ public class Commutateur implements Liable {
     @Override
     public boolean equals(Object obj) {
         if (obj != null) {
-            return nom.equals(((Commutateur) obj).getNom());
+            if (obj.getClass() == Commutateur.class) {
+                return nom.equals(((Commutateur) obj).getNom());
+            }
         }
         return false;
     }

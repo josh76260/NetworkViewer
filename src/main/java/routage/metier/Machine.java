@@ -11,4 +11,9 @@ public class Machine implements Liable{
     public String getNom() {
         return nom;
     }
+
+    @Override
+    public String toString() {
+        return nom;
+    }
 }

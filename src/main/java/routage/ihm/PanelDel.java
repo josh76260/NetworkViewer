@@ -1,13 +1,14 @@
 package routage.ihm;
 
 import routage.metier.Commutateur;
+import routage.metier.Liable;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class PanelDel extends JPanel {
     private final AffichageReseau ihm;
-    private final JComboBox<Commutateur> lComm;
+    private final JComboBox<Liable> lComm;
     
 
     public PanelDel(AffichageReseau ihm){
@@ -29,7 +30,7 @@ public class PanelDel extends JPanel {
 
         add(new JLabel("Commutateur : "), c);
 
-        lComm = new JComboBox<>(ihm.getReseau().getCommutateurs().toArray(new Commutateur[0]));
+        lComm = new JComboBox<>(ihm.getReseau().getLiables().toArray(new Liable[0]));
         lComm.setPreferredSize(new Dimension(50, 20));
         c.gridx = 1;
         add(lComm, c);
@@ -39,14 +40,14 @@ public class PanelDel extends JPanel {
         c.gridy = 6;
         c.gridx = 1;
         JButton supprimer = new JButton("Supprimer");
-        supprimer.addActionListener(ae -> supprimerCommutateur());
+        supprimer.addActionListener(ae -> supprimerLiable());
         add(supprimer, c);
 
         setVisible(true);
     }
 
-    private void supprimerCommutateur() {
-        ihm.getReseau().supprimerCommutateur((Commutateur) lComm.getSelectedItem());
+    private void supprimerLiable() {
+        ihm.getReseau().supprimerLiable((Liable) lComm.getSelectedItem());
         ihm.majIHM();
     }
 }
