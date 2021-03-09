@@ -6,6 +6,7 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.Path;
 import routage.metier.Commutateur;
+import routage.metier.Machine;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,8 +14,8 @@ import java.util.ArrayList;
 
 public class PanelChemin extends JPanel {
     private final AffichageReseau ihm;
-    private final JComboBox<Commutateur> lArr;
-    private final JComboBox<Commutateur> lDep;
+    private final JComboBox<Machine> lArr;
+    private final JComboBox<Machine> lDep;
     private final JLabel poids;
 
     public PanelChemin(AffichageReseau ihm) {
@@ -37,13 +38,13 @@ public class PanelChemin extends JPanel {
 
         add(new JLabel("Départ : "), c);
 
-        lDep = new JComboBox<>(ihm.getReseau().getCommutateurs().toArray(new Commutateur[0]));
+        lDep = new JComboBox<>(ihm.getReseau().getMachines().toArray(new Machine[0]));
         lDep.setPreferredSize(new Dimension(50, 20));
         lDep.addActionListener(ie -> modifArrivee());
         c.gridx = 1;
         add(lDep, c);
 
-        ArrayList<Commutateur> lTemp = new ArrayList<>(ihm.getReseau().getCommutateurs());
+        ArrayList<Machine> lTemp = new ArrayList<>(ihm.getReseau().getMachines());
         c = new GridBagConstraints();
 
         c.gridx = 0;
@@ -52,7 +53,7 @@ public class PanelChemin extends JPanel {
 
         lTemp.remove(lDep.getSelectedItem());
         add(new JLabel("Arrivée : "), c);
-        lArr = new JComboBox<>(lTemp.toArray(new Commutateur[0]));
+        lArr = new JComboBox<>(lTemp.toArray(new Machine[0]));
         lArr.setPreferredSize(new Dimension(50, 20));
         c.gridx = 1;
 
@@ -86,8 +87,8 @@ public class PanelChemin extends JPanel {
         Path chemin;
         Graph graph = ihm.getGraph();
         if (lDep.getSelectedItem() != null && lArr.getSelectedItem() != null) {
-            Node depart = graph.getNode(((Commutateur) lDep.getSelectedItem()).getNom()),
-                    arrivee = graph.getNode(((Commutateur) lArr.getSelectedItem()).getNom());
+            Node depart = graph.getNode(((Machine) lDep.getSelectedItem()).getNom()),
+                    arrivee = graph.getNode(((Machine) lArr.getSelectedItem()).getNom());
             Dijkstra dijkstra = new Dijkstra(Dijkstra.Element.EDGE, null, "weight");
             dijkstra.init(graph);
             dijkstra.setSource(depart);
@@ -108,10 +109,10 @@ public class PanelChemin extends JPanel {
 
     private void modifArrivee() {
         lArr.removeAllItems();
-        ArrayList<Commutateur> lTemp = new ArrayList<>(ihm.getReseau().getCommutateurs());
+        ArrayList<Machine> lTemp = new ArrayList<>(ihm.getReseau().getMachines());
         lTemp.remove(lDep.getSelectedItem());
-        for (Commutateur c : lTemp) {
-            lArr.addItem(c);
+        for (Machine m : lTemp) {
+            lArr.addItem(m);
         }
         repaint();
         revalidate();

@@ -16,11 +16,15 @@ node.selected{
 
 node.depart {
     fill-color: green;
+    shape:rounded-box;
+    stroke-mode:plain;
 }
 
 
 node.arrivee {
     fill-color: red;
+    shape:rounded-box;
+    stroke-mode:plain;
 }
 
 node.machine{
