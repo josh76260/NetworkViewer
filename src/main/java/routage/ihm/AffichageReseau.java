@@ -36,7 +36,7 @@ public class AffichageReseau extends JFrame {
         setTitle("Réseau 1");
         charger(getClass().getClassLoader().getResourceAsStream("reseau.data"));
         initReseau();
-        //initTabRoute();
+        initTabRoute();
         initView();
 
         add(new Menu(this), BorderLayout.NORTH);
@@ -60,23 +60,25 @@ public class AffichageReseau extends JFrame {
             Commutateur depart = lComm.removeFirst();
             for (Iterator<Node> it = graph.getNode(depart.getNom()).neighborNodes().iterator(); it.hasNext(); ) {
                 Node nodeDepart = it.next();
-                Commutateur voisin = lComm.get(lComm.indexOf(reseau.getCommutateur(nodeDepart.getId())));
-                Dijkstra dijkstra = new Dijkstra(Dijkstra.Element.EDGE, null, "weight");
-                dijkstra.init(graph);
-                dijkstra.setSource(nodeDepart);
-                dijkstra.compute();
+                if (!nodeDepart.getAttribute("ui.class").equals("machine")) {
+                    Commutateur voisin = lComm.get(lComm.indexOf(reseau.getCommutateur(nodeDepart.getId())));
+                    Dijkstra dijkstra = new Dijkstra(Dijkstra.Element.EDGE, null, "weight");
+                    dijkstra.init(graph);
+                    dijkstra.setSource(nodeDepart);
+                    dijkstra.compute();
 
-                for (Commutateur c : lComm) {
-                    Node nodeArrivee = graph.getNode(c.getNom());
-                    if (nodeArrivee != nodeDepart) {
-                        depart.addRoute(c, voisin, (int) (dijkstra.getPathLength(nodeArrivee) +
-                                ((int) graph.getNode(depart.getNom()).getEdgeBetween(nodeDepart).
-                                        getAttribute("weight"))));
+                    for (Commutateur c : lComm) {
+                        Node nodeArrivee = graph.getNode(c.getNom());
+                        if (nodeArrivee != nodeDepart) {
+                            depart.addRoute(c, voisin, (int) (dijkstra.getPathLength(nodeArrivee) +
+                                    ((int) graph.getNode(depart.getNom()).getEdgeBetween(nodeDepart).
+                                            getAttribute("weight"))));
+                        }
                     }
-                }
 
-                depart.addRoute(voisin, voisin, (Integer) graph.getNode(depart.getNom()).getEdgeBetween(nodeDepart).
-                        getAttribute("weight"));
+                    depart.addRoute(voisin, voisin, (Integer) graph.getNode(depart.getNom()).getEdgeBetween(nodeDepart).
+                            getAttribute("weight"));
+                }
             }
             lComm.add(depart);
         }
