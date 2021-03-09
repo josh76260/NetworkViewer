@@ -1,6 +1,10 @@
 package routage.metier;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Reseau {
     private final String nom;
@@ -10,6 +14,7 @@ public class Reseau {
     public Reseau(String nom) {
         this.nom = nom;
         listComm = new ArrayList<>();
+        listMachine = new ArrayList<>();
         Liaison.resetLiaison();
     }
 
@@ -35,19 +40,35 @@ public class Reseau {
         return true;
     }
 
+    public boolean ajouterMachine(Machine machine) {
+        for (Machine m : listMachine) {
+            if (m.getNom().equals(machine.getNom())) return false;
+        }
+        listMachine.add(machine);
+        return true;
+    }
+
     public void supprimerCommutateur(Commutateur commutateur) {
         assert commutateur != null;
-        for (Commutateur c : listComm) {
-            assert c != commutateur;
+        for (Liable liable : getLiables()) {
             for (int i = 0; i < Liaison.getLiaisons().size(); i++) {
                 Liaison l = Liaison.getLiaisons().get(i);
 
-                if (l.getCommutateurB() == commutateur || l.getCommutateurA() == commutateur) {
-                    Liaison.supprLiaison(c, commutateur);
+                if (l.getLiableB() == commutateur || l.getLiableA() == commutateur) {
+                    Liaison.supprLiaison(liable, commutateur);
                 }
             }
         }
         listComm.remove(commutateur);
+    }
+
+    public List<Liable> getLiables() {
+        return Stream.concat(listComm.stream(), listMachine.stream())
+                .collect(Collectors.toList());
+    }
+
+    public ArrayList<Machine> getMachines() {
+        return listMachine;
     }
 }
 

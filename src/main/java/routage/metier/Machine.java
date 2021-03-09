@@ -1,9 +1,14 @@
 package routage.metier;
 
-public class Machine {
+public class Machine implements Liable{
     private String nom;
 
     public Machine(String nom) {
         this.nom = nom;
+    }
+
+    @Override
+    public String getNom() {
+        return nom;
     }
 }

@@ -27,21 +27,25 @@ public class EcouteurSouris extends MouseAdapter {
         Graph graph = parent.getGraph();
         View view = parent.getView();
         Reseau reseau = parent.getReseau();
-        JPanel panelEst = parent.getPanelEst(), panelRoutage = parent.getPanelRoutage();
 
         for (Iterator<Node> it = graph.nodes().iterator(); it.hasNext(); ) {
             Node n = it.next();
 
             Node node = (Node) view.findGraphicElementAt(EnumSet.of(InteractiveElement.NODE), me.getX(), me.getY());
-            if (node != null && node.getId().equals(n.getId())) {
-                String att = node.getAttribute("ui.class").equals("selected") ? "not_selected" : "selected";
-                node.setAttribute("ui.class", att);
-                Commutateur com = reseau.getCommutateur(node.getId());
-                parent.setPanelRoutage(new PanelRoutage(com.getRoutes(), com));
-                parent.repaint();
-                parent.revalidate();
-            } else {
-                n.setAttribute("ui.class", "not_selected");
+            if (node != null) {
+                if (node.getId().equals(n.getId())) {
+                    if (!node.getAttribute("ui.class").equals("machine")) {
+                        String att = node.getAttribute("ui.class").equals("selected") ? "not_selected" : "selected";
+                        node.setAttribute("ui.class", att);
+                        Commutateur com = reseau.getCommutateur(node.getId());
+                        parent.setPanelRoutage(new PanelRoutage(com.getRoutes(), com));
+                        parent.repaint();
+                        parent.revalidate();
+                    }
+                } else {
+                    String att = n.getAttribute("ui.class").equals("machine") ? "machine" : "not_selected";
+                    n.setAttribute("ui.class", att);
+                }
             }
         }
     }

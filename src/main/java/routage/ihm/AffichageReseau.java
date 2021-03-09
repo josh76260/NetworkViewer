@@ -8,9 +8,7 @@ import org.graphstream.ui.swing_viewer.SwingViewer;
 import org.graphstream.ui.swing_viewer.ViewPanel;
 import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.Viewer;
-import routage.metier.Commutateur;
-import routage.metier.Liaison;
-import routage.metier.Reseau;
+import routage.metier.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +36,7 @@ public class AffichageReseau extends JFrame {
         setTitle("Réseau 1");
         charger(getClass().getClassLoader().getResourceAsStream("reseau.data"));
         initReseau();
-        initTabRoute();
+        //initTabRoute();
         initView();
 
         add(new Menu(this), BorderLayout.NORTH);
@@ -86,7 +84,7 @@ public class AffichageReseau extends JFrame {
 
     public void charger(InputStream inputStream) {
         String[] tabData;
-        Commutateur c1 = null, c2 = null;
+        Liable l1 = null, l2 = null;
         reseau = new Reseau("Réseau 1");
         try {
             Scanner sc = new Scanner(inputStream);
@@ -98,16 +96,20 @@ public class AffichageReseau extends JFrame {
                     reseau.ajouterCommutateur(new Commutateur(tabData[1]));
                 }
 
+                if (tabData[0].equals("M")) {
+                    reseau.ajouterMachine(new Machine(tabData[1]));
+                }
+
                 if (tabData[0].equals("+")) {
-                    for (Commutateur c : reseau.getCommutateurs()) {
-                        if (c.getNom().equals(tabData[1])) {
-                            c1 = c;
+                    for (Liable l : reseau.getLiables()) {
+                        if (l.getNom().equals(tabData[1])) {
+                            l1 = l;
                         }
-                        if (c.getNom().equals(tabData[2])) {
-                            c2 = c;
+                        if (l.getNom().equals(tabData[2])) {
+                            l2 = l;
                         }
                     }
-                    Liaison.creerLiaison(Integer.parseInt(tabData[3]), c1, c2);
+                    Liaison.creerLiaison(Integer.parseInt(tabData[3]), l1, l2);
                 }
             }
             sc.close();
@@ -120,13 +122,16 @@ public class AffichageReseau extends JFrame {
     public void sauvegarder(File selectedFile) {
         try {
             FileWriter fw = new FileWriter(selectedFile);
+            String type;
+            for (Liable l : reseau.getLiables()) {
+                if (l.getClass() == Commutateur.class) type = "C";
+                else type = "M";
 
-            for (Commutateur c : reseau.getCommutateurs()) {
-                fw.write("C:" + c.getNom() + "\n");
+                fw.write(type + ":" + l.getNom() + "\n");
             }
 
             for (Liaison l : Liaison.getLiaisons())
-                fw.write("+:" + l.getCommutateurA().getNom() + ":" + l.getCommutateurB().getNom() + ":" + l.getPoids() + "\n");
+                fw.write("+:" + l.getLiableA().getNom() + ":" + l.getLiableB().getNom() + ":" + l.getPoids() + "\n");
 
             fw.close();
 
@@ -147,8 +152,14 @@ public class AffichageReseau extends JFrame {
             graph.getNode(c.getNom()).setAttribute("ui.class", "not_selected");
         }
 
+        for (Machine m : reseau.getMachines()) {
+            graph.addNode(m.getNom());
+            graph.getNode(m.getNom()).setAttribute("ui.label", m.getNom());
+            graph.getNode(m.getNom()).setAttribute("ui.class", "machine");
+        }
+
         for (Liaison l : Liaison.getLiaisons()) {
-            Commutateur a = l.getCommutateurA(), b = l.getCommutateurB();
+            Liable a = l.getLiableA(), b = l.getLiableB();
             Node dep = graph.getNode(a.getNom()), dest = graph.getNode(b.getNom());
             graph.addEdge("l" + a.getNom() + b.getNom(), dep, dest);
             graph.getEdge("l" + a.getNom() + b.getNom()).setAttribute("weight", l.getPoids());

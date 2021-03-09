@@ -23,6 +23,12 @@ node.arrivee {
     fill-color: red;
 }
 
+node.machine{
+    fill-color: white;
+    shape:rounded-box;
+    stroke-mode:plain;
+}
+
 edge {
     text-size: 20px;
 }
