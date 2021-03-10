@@ -33,7 +33,7 @@ public class AffichageReseau extends JFrame {
     public AffichageReseau() {
         css = "url(" + this.getClass().getClassLoader().getResource("css.css").toString() + ")";
 
-        setTitle("Réseau 1");
+        setTitle("Affichage du réseau");
         charger(getClass().getClassLoader().getResourceAsStream("reseau.data"));
         initReseau();
         initTabRoute();
@@ -210,14 +210,6 @@ public class AffichageReseau extends JFrame {
 
     public View getView() {
         return view;
-    }
-
-    public JPanel getPanelEst() {
-        return panelEst;
-    }
-
-    public JPanel getPanelRoutage() {
-        return panelRoutage;
     }
 
     public void setPanelRoutage(PanelRoutage newPanelRoutage) {
