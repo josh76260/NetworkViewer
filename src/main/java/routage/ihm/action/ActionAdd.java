@@ -12,7 +12,7 @@ public class ActionAdd extends AbstractAction {
 
     public ActionAdd(AffichageReseau ihm) {
         this.ihm = ihm;
-        putValue(Action.SHORT_DESCRIPTION, "Ajouter un commutateur");
+        putValue(Action.SHORT_DESCRIPTION, "Ajouter un élément");
         putValue(Action.LARGE_ICON_KEY, new ImageIcon(getClass().getClassLoader().getResource("images/plus.png")));
     }
 

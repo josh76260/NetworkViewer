@@ -12,7 +12,7 @@ public class ActionDel extends AbstractAction {
 
     public ActionDel(AffichageReseau ihm ) {
         this.ihm = ihm;
-        putValue(Action.SHORT_DESCRIPTION, "Supprimer un commutateur");
+        putValue(Action.SHORT_DESCRIPTION, "Supprimer un élément");
         putValue(Action.LARGE_ICON_KEY, new ImageIcon(getClass().getClassLoader().getResource("images/minus.png")));
     }
 
