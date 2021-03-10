@@ -21,7 +21,7 @@ public class PanelAdd extends JPanel {
         c.insets = new Insets(0, 0, 35, 0);
 
 
-        add(new JLabel("Ajout d'un commutateur"), c);
+        add(new JLabel("Ajout d'un élément "), c);
 
         c = new GridBagConstraints();
 

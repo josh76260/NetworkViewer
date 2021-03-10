@@ -20,7 +20,7 @@ public class PanelDel extends JPanel {
         c.gridwidth = 2;
         c.insets = new Insets(0, 0, 35, 0);
 
-        add(new JLabel("Suppression d'un commutateur "), c);
+        add(new JLabel("Suppression d'un élément "), c);
 
         c = new GridBagConstraints();
 

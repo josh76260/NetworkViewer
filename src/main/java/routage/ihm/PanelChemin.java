@@ -28,7 +28,7 @@ public class PanelChemin extends JPanel {
         c.insets = new Insets(0, 0, 35, 0);
 
 
-        add(new JLabel("Ajout d'une route "), c);
+        add(new JLabel("Calcul du chemin"), c);
 
         c = new GridBagConstraints();
 
