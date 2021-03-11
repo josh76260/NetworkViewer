@@ -1,7 +1,9 @@
 package routage.ihm;
 
+import org.graphstream.graph.Element;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
+import org.graphstream.ui.graphicGraph.GraphicElement;
 import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.util.InteractiveElement;
 import routage.metier.Commutateur;
@@ -25,11 +27,10 @@ public class EcouteurSouris extends MouseAdapter {
         Graph graph = parent.getGraph();
         View view = parent.getView();
         Reseau reseau = parent.getReseau();
+        Node node = (Node) view.findGraphicElementAt(EnumSet.of(InteractiveElement.NODE), me.getX(), me.getY());
 
         for (Iterator<Node> it = graph.nodes().iterator(); it.hasNext(); ) {
             Node n = it.next();
-
-            Node node = (Node) view.findGraphicElementAt(EnumSet.of(InteractiveElement.NODE), me.getX(), me.getY());
             if (node != null) {
                 if (node.getId().equals(n.getId())) {
                     if (estCommutateur(node)) {
@@ -40,6 +41,7 @@ public class EcouteurSouris extends MouseAdapter {
                         parent.repaint();
                         parent.revalidate();
                     }
+                    parent.setPanelSaisie(new PanelModif(parent, reseau.getLiable(node.getId())));
                 } else {
                     String att = !estCommutateur(n) ? (String) n.getAttribute("ui.class") : "not_selected";
                     n.setAttribute("ui.class", att);

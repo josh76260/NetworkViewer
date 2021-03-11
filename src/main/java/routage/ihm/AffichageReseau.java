@@ -35,7 +35,7 @@ public class AffichageReseau extends JFrame {
 
         setTitle("Affichage du réseau");
         charger(getClass().getClassLoader().getResourceAsStream("reseau.data"));
-        initReseau();
+        initGraphe();
         initTabRoute();
         initView();
 
@@ -143,7 +143,7 @@ public class AffichageReseau extends JFrame {
         }
     }
 
-    private void initReseau() {
+    private void initGraphe() {
         System.setProperty("org.graphstream.ui", "swing");
         graph = new SingleGraph("reseau");
         graph.setAttribute("ui.stylesheet", css);
@@ -188,7 +188,7 @@ public class AffichageReseau extends JFrame {
     }
 
     public void majIHM() {
-        initReseau();
+        initGraphe();
         initTabRoute();
         initView();
         setPanelSaisie(new JPanel());

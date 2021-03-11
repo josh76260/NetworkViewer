@@ -15,4 +15,8 @@ public class Liable {
     public String toString() {
         return nom;
     }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 }

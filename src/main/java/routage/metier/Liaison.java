@@ -50,6 +50,14 @@ public class Liaison {
         liaisonsDejaExistantes = new ArrayList<>();
     }
 
+    public static Liaison getLiaisonEntre(Liable l1, Liable l2) {
+        for (Liaison l: liaisonsDejaExistantes) {
+            if((l.a.equals(l1) && l.b.equals(l2)) || (l.a.equals(l2) && l.b.equals(l1)) ) return l;
+        }
+
+        return null;
+    }
+
     public Liable getLiableA() {
         return a;
     }
@@ -69,5 +77,9 @@ public class Liaison {
                 ", dep=" + a +
                 ", arr=" + b +
                 '}';
+    }
+
+    public void setPoids(int poids) {
+        this.poids = poids;
     }
 }
