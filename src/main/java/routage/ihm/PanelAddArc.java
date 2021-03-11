@@ -36,7 +36,9 @@ public class PanelAddArc extends JPanel {
 
         add(new JLabel("Départ : "), c);
 
-        lDep = new JComboBox<>(ihm.getReseau().getLiables().toArray(new Liable[0]));
+        ArrayList<Liable> liables = (ArrayList<Liable>) ihm.getReseau().getLiables();
+        liables.removeIf(l -> l.getClass() == Machine.class && !Liaison.getVoisins(l).isEmpty());
+        lDep = new JComboBox<>(liables.toArray(Liable[]::new));
         lDep.setPreferredSize(new Dimension(50, 20));
         lDep.addActionListener(ie -> modifArrivee());
         c.gridx = 1;

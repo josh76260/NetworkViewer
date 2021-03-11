@@ -87,6 +87,14 @@ public class Reseau {
             if(listMachine.contains(liable))supprimerMachine((Machine) liable);
             else supprimerCommutateur((Commutateur) liable);
     }
+
+    public Liable getLiable(String id) {
+        for (Liable l: getLiables()) {
+            if (l.getNom().equals(id))return l;
+        }
+
+        return null;
+    }
 }
 
 
