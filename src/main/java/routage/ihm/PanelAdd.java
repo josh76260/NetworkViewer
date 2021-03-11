@@ -6,24 +6,14 @@ import routage.metier.Machine;
 import javax.swing.*;
 import java.awt.*;
 
-public class PanelAdd extends JPanel {
+public class PanelAdd extends PanelSaisie {
     private final JTextField nom;
-    private final AffichageReseau ihm;
-    private JRadioButton estCommutateur;
+    private final JRadioButton estCommutateur;
 
     public PanelAdd(AffichageReseau ihm) {
-        super(new GridBagLayout());
-        this.ihm = ihm;
+        super("Ajout d'un élément ", ihm);
+
         GridBagConstraints c = new GridBagConstraints();
-
-        c.fill = GridBagConstraints.CENTER;
-        c.gridwidth = 2;
-        c.insets = new Insets(0, 0, 35, 0);
-
-
-        add(new JLabel("Ajout d'un élément "), c);
-
-        c = new GridBagConstraints();
 
         c.gridx = 0;
         c.gridy = 3;

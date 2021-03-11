@@ -1,28 +1,18 @@
 package routage.ihm;
 
-import routage.metier.Commutateur;
 import routage.metier.Liable;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class PanelDel extends JPanel {
-    private final AffichageReseau ihm;
+public class PanelDel extends PanelSaisie {
     private final JComboBox<Liable> lComm;
-    
 
-    public PanelDel(AffichageReseau ihm){
-        super(new GridBagLayout());
-        this.ihm = ihm;
+
+    public PanelDel(AffichageReseau ihm) {
+        super("Suppression d'un élément ", ihm);
+
         GridBagConstraints c = new GridBagConstraints();
-
-        c.fill = GridBagConstraints.CENTER;
-        c.gridwidth = 2;
-        c.insets = new Insets(0, 0, 35, 0);
-
-        add(new JLabel("Suppression d'un élément "), c);
-
-        c = new GridBagConstraints();
 
         c.gridx = 0;
         c.gridy = 3;

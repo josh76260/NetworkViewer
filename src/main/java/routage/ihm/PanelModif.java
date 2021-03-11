@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
-public class PanelModif extends JPanel {
+public class PanelModif extends PanelSaisie {
     private final JTextField nom;
     private final JComboBox<Liable> lDest;
     private final JTextField poids;
@@ -16,19 +16,9 @@ public class PanelModif extends JPanel {
     private Liable selected;
 
     public PanelModif(AffichageReseau ihm, Liable selected) {
-        super(new GridBagLayout());
-        this.ihm = ihm;
-        this.selected = selected;
+        super("Modification d'un élément", ihm);
+
         GridBagConstraints c = new GridBagConstraints();
-
-        c.fill = GridBagConstraints.CENTER;
-        c.gridwidth = 2;
-        c.insets = new Insets(0, 0, 35, 0);
-
-
-        add(new JLabel("Modification d'un élément"), c);
-
-        c = new GridBagConstraints();
 
         c.gridx = 0;
         c.gridy = 3;

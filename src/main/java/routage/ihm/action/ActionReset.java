@@ -1,14 +1,10 @@
 package routage.ihm.action;
 
-import org.graphstream.graph.Graph;
-import org.graphstream.graph.Node;
-import org.graphstream.ui.graphicGraph.GraphicGraph;
-import org.graphstream.ui.graphicGraph.GraphicNode;
 import routage.ihm.AffichageReseau;
+import routage.ihm.PanelSaisie;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.util.Iterator;
 
 public class ActionReset extends AbstractAction {
 
@@ -23,6 +19,6 @@ public class ActionReset extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent ae) {
         ihm.resetUI();
-        ihm.setPanelSaisie(new JPanel());
+        ihm.setPanelSaisie(new PanelSaisie("Cliquez sur une action ou sur un élément du graphe", ihm));
     }
 }

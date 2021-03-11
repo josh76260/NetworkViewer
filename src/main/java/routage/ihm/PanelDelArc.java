@@ -1,6 +1,5 @@
 package routage.ihm;
 
-import routage.metier.Commutateur;
 import routage.metier.Liable;
 import routage.metier.Liaison;
 
@@ -8,24 +7,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class PanelDelArc extends JPanel {
-    private final AffichageReseau ihm;
-    private JComboBox<Liable> lDep;
+public class PanelDelArc extends PanelSaisie {
+    private final JComboBox<Liable> lDep;
     private JComboBox<Liable> lArr;
 
     public PanelDelArc(AffichageReseau ihm) {
-        super(new GridBagLayout());
-        this.ihm = ihm;
+        super("Suppression d'une route", ihm);
+
         GridBagConstraints c = new GridBagConstraints();
-
-        c.fill = GridBagConstraints.CENTER;
-        c.gridwidth = 2;
-        c.insets = new Insets(0, 0, 35, 0);
-
-
-        add(new JLabel("Suppression d'une route"), c);
-
-        c = new GridBagConstraints();
 
         c.gridx = 0;
         c.gridy = 3;

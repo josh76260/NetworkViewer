@@ -44,7 +44,7 @@ public class AffichageReseau extends JFrame {
         panelRoutage = new PanelRoutage(reseau.getCommutateur("s").getRoutes(), reseau.getCommutateur("s"));
         panelEst = new JPanel(new GridLayout(2, 1));
         panelEst.add(panelRoutage);
-        panelEst.add(new JPanel());
+        panelEst.add(new PanelSaisie("Cliquez sur une action ou sur un élément du graphe", this));
         add(panelEst, BorderLayout.EAST);
 
         setSize(1000, 800);

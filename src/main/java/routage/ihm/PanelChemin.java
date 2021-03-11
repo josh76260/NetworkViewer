@@ -5,32 +5,21 @@ import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.Path;
-import routage.metier.Commutateur;
 import routage.metier.Machine;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class PanelChemin extends JPanel {
-    private final AffichageReseau ihm;
+public class PanelChemin extends PanelSaisie {
     private final JComboBox<Machine> lArr;
     private final JComboBox<Machine> lDep;
     private final JLabel poids;
 
     public PanelChemin(AffichageReseau ihm) {
-        super(new GridBagLayout());
-        this.ihm = ihm;
+        super("Calcul du chemin", ihm);
+
         GridBagConstraints c = new GridBagConstraints();
-
-        c.fill = GridBagConstraints.CENTER;
-        c.gridwidth = 2;
-        c.insets = new Insets(0, 0, 35, 0);
-
-
-        add(new JLabel("Calcul du chemin"), c);
-
-        c = new GridBagConstraints();
 
         c.gridx = 0;
         c.gridy = 3;

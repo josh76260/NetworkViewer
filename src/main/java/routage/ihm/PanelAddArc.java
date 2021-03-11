@@ -1,6 +1,5 @@
 package routage.ihm;
 
-import routage.metier.Commutateur;
 import routage.metier.Liable;
 import routage.metier.Liaison;
 import routage.metier.Machine;
@@ -9,26 +8,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class PanelAddArc extends JPanel {
-    private final AffichageReseau ihm;
+public class PanelAddArc extends PanelSaisie {
     private final JComboBox<Liable> lDep;
     private final JComboBox<Liable> lArr;
     private final JTextField poids;
 
 
     public PanelAddArc(AffichageReseau ihm) {
-        super(new GridBagLayout());
-        this.ihm = ihm;
-        GridBagConstraints c = new GridBagConstraints();
-
-        c.fill = GridBagConstraints.CENTER;
-        c.gridwidth = 2;
-        c.insets = new Insets(0, 0, 35, 0);
-
-
-        add(new JLabel("Ajout d'une route "), c);
-
-        c = new GridBagConstraints();
+        super("Ajout d'une route", ihm);
+        GridBagConstraints c= new GridBagConstraints();
 
         c.gridx = 0;
         c.gridy = 3;
