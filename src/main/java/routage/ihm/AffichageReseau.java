@@ -8,6 +8,7 @@ import org.graphstream.ui.swing_viewer.SwingViewer;
 import org.graphstream.ui.swing_viewer.ViewPanel;
 import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.Viewer;
+import routage.ihm.action.*;
 import routage.metier.*;
 
 import javax.swing.*;
@@ -39,6 +40,8 @@ public class AffichageReseau extends JFrame {
         initTabRoute();
         initView();
 
+        initJMenuBar();
+
         add(new Menu(this), BorderLayout.NORTH);
 
         panelRoutage = new PanelRoutage(reseau.getCommutateur("s").getRoutes(), reseau.getCommutateur("s"));
@@ -51,6 +54,51 @@ public class AffichageReseau extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    private void initJMenuBar() {
+        JMenuBar jMenuBar = new JMenuBar();
+        JMenu fichier = new JMenu("Fichier");
+        JMenuItem jMenuItem = new JMenuItem(new ActionLoad(this));
+        jMenuItem.setText("Charger");
+        fichier.add(jMenuItem);
+
+        jMenuItem = new JMenuItem(new ActionSave(this));
+        jMenuItem.setText("Sauvegarder");
+        fichier.add(jMenuItem);
+
+        fichier.addSeparator();
+        fichier.add(new ActionQuitter());
+
+        JMenu action = new JMenu("Action");
+        jMenuItem = new JMenuItem(new ActionAdd(this));
+        jMenuItem.setText("Ajouter un élément");
+        action.add(jMenuItem);
+
+        jMenuItem = new JMenuItem(new ActionAddArc(this));
+        jMenuItem.setText("Ajouter une route");
+        action.add(jMenuItem);
+
+        action.addSeparator();
+
+        jMenuItem = new JMenuItem(new ActionDel(this));
+        jMenuItem.setText("Supprimer un élément");
+        action.add(jMenuItem);
+
+        jMenuItem = new JMenuItem(new ActionDelArc(this));
+        jMenuItem.setText("Supprimer une route");
+        action.add(jMenuItem);
+
+        JMenu reset = new JMenu("Affichage");
+        jMenuItem = new JMenuItem(new ActionReset(this));
+        jMenuItem.setText("Réinitialiser l'affichage");
+        reset.add(jMenuItem);
+
+        jMenuBar.add(fichier);
+        jMenuBar.add(action);
+        jMenuBar.add(reset);
+
+        setJMenuBar(jMenuBar);
     }
 
     private void initTabRoute() {

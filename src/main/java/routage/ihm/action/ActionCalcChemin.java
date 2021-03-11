@@ -5,6 +5,7 @@ import routage.ihm.PanelChemin;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 public class ActionCalcChemin extends AbstractAction {
 
@@ -14,6 +15,8 @@ public class ActionCalcChemin extends AbstractAction {
         this.ihm = ihm;
         putValue(Action.SHORT_DESCRIPTION, "Calculer un chemin");
         putValue(Action.LARGE_ICON_KEY, new ImageIcon(getClass().getClassLoader().getResource("images/path.png")));
+        putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
+        putValue(Action.MNEMONIC_KEY, KeyEvent.VK_C);
     }
 
     @Override
