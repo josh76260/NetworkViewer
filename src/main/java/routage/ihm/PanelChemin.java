@@ -11,11 +11,33 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Panel permettant de calculer le chemin entre deux machine
+ *
+ * @author Joshua Galien
+ */
 public class PanelChemin extends PanelSaisie {
-    private final JComboBox<Machine> lArr;
+
+    /**
+     * Liste des machines au départ
+     */
     private final JComboBox<Machine> lDep;
+
+    /**
+     * Liste de machines à l'arrivée
+     */
+    private final JComboBox<Machine> lArr;
+
+    /**
+     * Label permettant d'afficher le poids du chemin
+     */
     private final JLabel poids;
 
+    /**
+     * Constructeur
+     *
+     * @param ihm la fenêtre parente
+     */
     public PanelChemin(AffichageReseau ihm) {
         super("Calcul du chemin", ihm);
 
@@ -72,6 +94,9 @@ public class PanelChemin extends PanelSaisie {
         setVisible(true);
     }
 
+    /**
+     * Méthode permettant de calculer le chemin le plus court entre deux machines
+     */
     private void calculerChemin() {
         Path chemin;
         Graph graph = ihm.getGraph();
@@ -97,6 +122,9 @@ public class PanelChemin extends PanelSaisie {
         }
     }
 
+    /**
+     * Méthode permettant de modifier la liste des commutateur à l'arrivée en fonction du départ sélectionné
+     */
     private void modifArrivee() {
         lArr.removeAllItems();
         ArrayList<Machine> lTemp = new ArrayList<>(ihm.getReseau().getMachines());

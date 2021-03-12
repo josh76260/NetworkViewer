@@ -7,11 +7,24 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
+/**
+ * Action permettant la suppression d'un élément.
+ *
+ * @author Joshua Galien
+ */
 public class ActionDel extends AbstractAction {
 
+    /**
+     * Fenêtre parente
+     */
     private final AffichageReseau ihm;
 
-    public ActionDel(AffichageReseau ihm ) {
+    /**
+     * Constructeur de l'action
+     *
+     * @param ihm la fenêtre parente
+     */
+    public ActionDel(AffichageReseau ihm) {
         this.ihm = ihm;
         putValue(Action.SHORT_DESCRIPTION, "Supprimer un élément");
         putValue(Action.LARGE_ICON_KEY, new ImageIcon(getClass().getClassLoader().getResource("images/minus.png")));

@@ -7,10 +7,23 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
+/**
+ * Action permettant de réinitialiser l'affichage
+ *
+ * @author Joshua Galien
+ */
 public class ActionReset extends AbstractAction {
 
-    private AffichageReseau ihm;
+    /**
+     * Fenêtre parente
+     */
+    private final AffichageReseau ihm;
 
+    /**
+     * Constructeur de l'action
+     *
+     * @param ihm la fenêtre parente
+     */
     public ActionReset(AffichageReseau ihm) {
         this.ihm = ihm;
         putValue(Action.SHORT_DESCRIPTION, "Réinitialiser l'affichage");

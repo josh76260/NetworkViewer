@@ -5,10 +5,23 @@ import routage.metier.Liable;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel permettant de supprimer un élément
+ *
+ * @author Joshua Galien
+ */
 public class PanelDel extends PanelSaisie {
+
+    /**
+     * la liste des éléments dans le réseau
+     */
     private final JComboBox<Liable> lComm;
 
-
+    /**
+     * Constructeur
+     *
+     * @param ihm la fenêtre parente
+     */
     public PanelDel(AffichageReseau ihm) {
         super("Suppression d'un élément ", ihm);
 
@@ -36,6 +49,9 @@ public class PanelDel extends PanelSaisie {
         setVisible(true);
     }
 
+    /**
+     * Méthode permettant de supprimer un élément
+     */
     private void supprimerLiable() {
         ihm.getReseau().supprimerLiable((Liable) lComm.getSelectedItem());
         ihm.majIHM();

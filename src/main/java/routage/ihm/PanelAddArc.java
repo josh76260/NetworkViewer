@@ -8,12 +8,33 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Panel permettant d'ajouter une route
+ *
+ * @author Joshua Galien
+ */
 public class PanelAddArc extends PanelSaisie {
+
+    /**
+     * Liste des commutateurs au départ
+     */
     private final JComboBox<Liable> lDep;
+
+    /**
+     * Liste des commutateurs à l'arrivée
+     */
     private final JComboBox<Liable> lArr;
+
+    /**
+     * Champ de saise pour le poids de la route
+     */
     private final JTextField poids;
 
-
+    /**
+     * Constructeur
+     *
+     * @param ihm la fenêtre parente
+     */
     public PanelAddArc(AffichageReseau ihm) {
         super("Ajout d'une route", ihm);
         GridBagConstraints c= new GridBagConstraints();
@@ -72,6 +93,9 @@ public class PanelAddArc extends PanelSaisie {
         setVisible(true);
     }
 
+    /**
+     * Méthode permettant de modifier la liste des commutateur à l'arrivée en fonction du départ sélectionné
+     */
     private void modifArrivee() {
         lArr.removeAllItems();
         ArrayList<Liable> lTemp = new ArrayList<>(ihm.getReseau().getLiables());
@@ -88,6 +112,9 @@ public class PanelAddArc extends PanelSaisie {
         revalidate();
     }
 
+    /**
+     * Méthode permettant d'ajouter une route
+     */
     private void ajouterRoute() {
         if (!poids.getText().equals("") && poids.getText().matches("^\\p{Digit}+$")) {
             Liable l = (Liable) lDep.getSelectedItem();

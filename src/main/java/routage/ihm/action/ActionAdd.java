@@ -7,10 +7,23 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
+/**
+ * Action permettant l'ajout d'un élément.
+ *
+ * @author Joshua Galien
+ */
 public class ActionAdd extends AbstractAction {
 
-    private AffichageReseau ihm;
+    /**
+     * Fenêtre parente
+     */
+    private final AffichageReseau ihm;
 
+    /**
+     * Constructeur de l'action
+     *
+     * @param ihm la fenêtre parente
+     */
     public ActionAdd(AffichageReseau ihm) {
         this.ihm = ihm;
         putValue(Action.SHORT_DESCRIPTION, "Ajouter un élément");

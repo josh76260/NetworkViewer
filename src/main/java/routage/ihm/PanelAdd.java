@@ -6,10 +6,28 @@ import routage.metier.Machine;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel permettant d'ajouter un élément
+ *
+ * @author Joshua Galien
+ */
 public class PanelAdd extends PanelSaisie {
+
+    /**
+     * Champ de saisie pour le nom
+     */
     private final JTextField nom;
+
+    /**
+     * Radio bouton pour savoir le type de l'élément à ajouter
+     */
     private final JRadioButton estCommutateur;
 
+    /**
+     * Constructeur
+     *
+     * @param ihm la fenêtre parente
+     */
     public PanelAdd(AffichageReseau ihm) {
         super("Ajout d'un élément ", ihm);
 
@@ -54,6 +72,9 @@ public class PanelAdd extends PanelSaisie {
         setVisible(true);
     }
 
+    /**
+     * Méthode premettant d'ajouter un commutateur
+     */
     private void ajouterCommutateur() {
         if (!nom.getText().equals("")) {
             boolean estAdd;

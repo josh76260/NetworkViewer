@@ -3,9 +3,24 @@ package routage.ihm;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Classe regroupant tout les panels avec une saisie utilisateur
+ *
+ * @author Joshua Galien
+ */
 public class PanelSaisie extends JPanel {
+
+    /**
+     * Fenêtre parente
+     */
     protected AffichageReseau ihm;
 
+    /**
+     * Contruction du panel de saisie
+     *
+     * @param titre le titre du panel
+     * @param ihm la fenêtre parente
+     */
     public PanelSaisie(String titre, AffichageReseau ihm) {
         super(new GridBagLayout());
         this.ihm = ihm;

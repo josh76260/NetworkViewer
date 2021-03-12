@@ -5,8 +5,18 @@ import routage.ihm.action.*;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Menu du logiciel
+ *
+ * @author Joshua Galien
+ */
 public class Menu extends JToolBar {
 
+    /**
+     * Contructeur du menu
+     *
+     * @param parent la fenêtre parente
+     */
     public Menu(AffichageReseau parent) {
         super();
         setPreferredSize(new Dimension(parent.getWidth(), 40));
@@ -30,5 +40,4 @@ public class Menu extends JToolBar {
         setFloatable(false);
         setVisible(true);
     }
-
 }

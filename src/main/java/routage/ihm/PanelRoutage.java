@@ -7,10 +7,29 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Panel permettant de visualiser les tables de routage
+ *
+ * @author Joshua Galien
+ */
 public class PanelRoutage extends JPanel {
+
+    /**
+     * Liste des routes du commutateur sélectionné
+     */
     private final ArrayList<Route> tabRoutage;
+
+    /**
+     * Commutateur sélectionné
+     */
     private final Commutateur selected;
 
+    /**
+     * Construction du panel
+     *
+     * @param tabRoutage la liste des routes
+     * @param selected le commutateur sélectionné
+     */
     public PanelRoutage(ArrayList<Route> tabRoutage, Commutateur selected) {
         this.tabRoutage = tabRoutage;
         this.selected = selected;

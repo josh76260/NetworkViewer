@@ -1,17 +1,29 @@
 package routage.ihm.action;
 
 import routage.ihm.AffichageReseau;
-import routage.ihm.PanelAdd;
 import routage.ihm.PanelDelArc;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
+/**
+ * Action permettant la suppression d'une route.
+ *
+ * @author Joshua Galien
+ */
 public class ActionDelArc extends AbstractAction {
 
+    /**
+     * Fenêtre parente
+     */
     private final AffichageReseau ihm;
 
+    /**
+     * Constructeur de l'action
+     *
+     * @param ihm la fenêtre parente
+     */
     public ActionDelArc(AffichageReseau ihm) {
         this.ihm = ihm;
         putValue(Action.SHORT_DESCRIPTION, "Supprimer une route");

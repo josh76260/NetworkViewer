@@ -7,10 +7,28 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Panel permettant de supprimer une route
+ *
+ * @author Joshua Galien
+ */
 public class PanelDelArc extends PanelSaisie {
+
+    /**
+     * Liste des élément au départ
+     */
     private final JComboBox<Liable> lDep;
+
+    /**
+     * Liste des élément à l'arrivée
+     */
     private JComboBox<Liable> lArr;
 
+    /**
+     * Constructeur du panel
+     *
+     * @param ihm la fenêtre parente
+     */
     public PanelDelArc(AffichageReseau ihm) {
         super("Suppression d'une route", ihm);
 
@@ -55,12 +73,18 @@ public class PanelDelArc extends PanelSaisie {
         setVisible(true);
     }
 
+    /**
+     * Méthode permettant de supprimer une route
+     */
     private void supprimerRoute() {
         Liable l = ((Liable) lDep.getSelectedItem());
         Liaison.supprLiaison(l, (Liable) lArr.getSelectedItem());
         ihm.majIHM();
     }
 
+    /**
+     * Méthode permettant de mettre à jour l'arrivée en fonction du départ choisi
+     */
     private void modifArrivee() {
         lArr.removeAllItems();
 

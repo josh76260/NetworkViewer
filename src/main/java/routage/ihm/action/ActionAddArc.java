@@ -7,10 +7,23 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
+/**
+ * Action permettant l'ajout d'une route.
+ *
+ * @author Joshua Galien
+ */
 public class ActionAddArc extends AbstractAction {
 
+    /**
+     * Fenêtre parente
+     */
     private final AffichageReseau ihm;
 
+    /**
+     * Constructeur de l'action
+     *
+     * @param ihm la fenêtre parente
+     */
     public ActionAddArc(AffichageReseau ihm) {
         this.ihm = ihm;
         putValue(Action.SHORT_DESCRIPTION, "Ajouter une route");

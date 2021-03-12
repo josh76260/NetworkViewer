@@ -1,9 +1,7 @@
 package routage.ihm;
 
-import org.graphstream.graph.Element;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
-import org.graphstream.ui.graphicGraph.GraphicElement;
 import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.util.InteractiveElement;
 import routage.metier.Commutateur;
@@ -14,10 +12,23 @@ import java.awt.event.MouseEvent;
 import java.util.EnumSet;
 import java.util.Iterator;
 
+/**
+ * Ecouteur sur les action de la souris sur la vue du graphe
+ *
+ * @author Joshua Galien
+ */
 public class EcouteurSouris extends MouseAdapter {
 
+    /**
+     * Fenêtre parente
+     */
     private final AffichageReseau parent;
 
+    /**
+     * Constructeur
+     *
+     * @param parent la fenêtre parente
+     */
     public EcouteurSouris(AffichageReseau parent) {
         this.parent = parent;
     }
@@ -50,6 +61,12 @@ public class EcouteurSouris extends MouseAdapter {
         }
     }
 
+    /**
+     * Retourne si le node en paramètre est un commutateur
+     *
+     * @param node le node selectionné
+     * @return vrai si c'est un commutateur
+     */
     private boolean estCommutateur(Node node) {
         return !node.getAttribute("ui.class").equals("machine") &&
                 !node.getAttribute("ui.class").equals("depart") &&

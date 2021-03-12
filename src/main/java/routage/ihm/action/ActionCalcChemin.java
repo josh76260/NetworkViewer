@@ -7,10 +7,23 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
+/**
+ * Action permettant de calculer le chemin entre deux machines
+ *
+ * @author Joshua Galien
+ */
 public class ActionCalcChemin extends AbstractAction {
 
+    /**
+     * Fenêtre parente
+     */
     private final AffichageReseau ihm;
 
+    /**
+     * Constructeur de l'action
+     *
+     * @param ihm la fenêtre parente
+     */
     public ActionCalcChemin(AffichageReseau ihm) {
         this.ihm = ihm;
         putValue(Action.SHORT_DESCRIPTION, "Calculer un chemin");

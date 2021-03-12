@@ -9,10 +9,23 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+/**
+ * Action permettant le chargement d'un fichier
+ *
+ * @author Joshua Galien
+ */
 public class ActionLoad extends AbstractAction {
 
+    /**
+     * Fenêtre parente
+     */
     private final AffichageReseau ihm;
 
+    /**
+     * Constructeur de l'action
+     *
+     * @param ihm la fenêtre parente
+     */
     public ActionLoad(AffichageReseau ihm) {
         this.ihm = ihm;
         putValue(Action.SHORT_DESCRIPTION, "Charger un fichier");

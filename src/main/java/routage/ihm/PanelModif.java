@@ -12,11 +12,12 @@ public class PanelModif extends PanelSaisie {
     private final JTextField nom;
     private final JComboBox<Liable> lDest;
     private final JTextField poids;
-    private AffichageReseau ihm;
-    private Liable selected;
+    private final Liable selected;
 
     public PanelModif(AffichageReseau ihm, Liable selected) {
         super("Modification d'un élément", ihm);
+
+        this.selected = selected;
 
         GridBagConstraints c = new GridBagConstraints();
 
@@ -56,7 +57,8 @@ public class PanelModif extends PanelSaisie {
         poids = new JTextField(15);
         c.gridx = 1;
         Liaison l = Liaison.getLiaisonEntre(selected, ((Liable) lDest.getSelectedItem()));
-        poids.setText(l.getPoids() + "");
+        if(l != null)
+            poids.setText(l.getPoids() + "");
 
         add(poids, c);
 
@@ -72,6 +74,7 @@ public class PanelModif extends PanelSaisie {
     private void modifierElement() {
         if (!nom.getText().equals("")) {
             if (ihm.getReseau().getLiables().stream().filter(l -> l.getNom().equals(nom.getText())).findAny().isEmpty()) {
+                selected.setNom(nom.getText());
                 if (!poids.getText().equals(""))
                     Liaison.getLiaisonEntre(selected, ((Liable) lDest.getSelectedItem())).setPoids(Integer.parseInt(poids.getText()));
 
