@@ -5,8 +5,6 @@ import routage.metier.Liaison;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
 public class PanelModif extends PanelSaisie {
     private final JTextField nom;
@@ -57,7 +55,7 @@ public class PanelModif extends PanelSaisie {
         poids = new JTextField(15);
         c.gridx = 1;
         Liaison l = Liaison.getLiaisonEntre(selected, ((Liable) lDest.getSelectedItem()));
-        if(l != null)
+        if (l != null)
             poids.setText(l.getPoids() + "");
 
         add(poids, c);
@@ -72,22 +70,33 @@ public class PanelModif extends PanelSaisie {
     }
 
     private void modifierElement() {
+
+        if (!poids.getText().equals("")) {
+            Liaison.getLiaisonEntre(selected, ((Liable) lDest.getSelectedItem())).setPoids(Integer.parseInt(poids.getText()));
+        } else {
+            alertEstVide("poids");
+            return;
+        }
+
         if (!nom.getText().equals("")) {
-            if (ihm.getReseau().getLiables().stream().filter(l -> l.getNom().equals(nom.getText())).findAny().isEmpty()) {
+            if (ihm.getReseau().getLiables().stream().filter(l -> !l.getNom().equals(selected.getNom())).noneMatch(l -> l.getNom().equals(nom.getText()))) {
                 selected.setNom(nom.getText());
-                if (!poids.getText().equals(""))
-                    Liaison.getLiaisonEntre(selected, ((Liable) lDest.getSelectedItem())).setPoids(Integer.parseInt(poids.getText()));
-
-                ihm.majIHM();
-
             } else {
                 JOptionPane.showMessageDialog(ihm,
                         "Le nom est déjà utilisé ! ",
                         "Nom déjà utilisé",
                         JOptionPane.ERROR_MESSAGE);
+                return;
             }
         }
+        else {
+            alertEstVide("nom");
+            return;
+        }
+
+        ihm.majIHM();
     }
+
 
     private void modifPoids() {
         Liaison l = Liaison.getLiaisonEntre(selected, ((Liable) lDest.getSelectedItem()));

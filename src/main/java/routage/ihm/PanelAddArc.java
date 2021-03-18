@@ -116,10 +116,20 @@ public class PanelAddArc extends PanelSaisie {
      * Méthode permettant d'ajouter une route
      */
     private void ajouterRoute() {
-        if (!poids.getText().equals("") && poids.getText().matches("^\\p{Digit}+$")) {
-            Liable l = (Liable) lDep.getSelectedItem();
-            Liaison.creerLiaison(Integer.parseInt(poids.getText()), l, (Liable) lArr.getSelectedItem());
-            ihm.majIHM();
+        if (!poids.getText().equals("") ) {
+            if(poids.getText().matches("^\\p{Digit}+$")) {
+                Liable l = (Liable) lDep.getSelectedItem();
+                Liaison.creerLiaison(Integer.parseInt(poids.getText()), l, (Liable) lArr.getSelectedItem());
+                ihm.majIHM();
+            }
+            else {
+                JOptionPane.showMessageDialog(ihm,
+                        "Le poids doit être un nombre ! ",
+                        "Poids non valide",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }else{
+            alertEstVide("poids");
         }
     }
 }

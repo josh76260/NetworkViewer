@@ -45,7 +45,7 @@ public class PanelAdd extends PanelSaisie {
 
         c = new GridBagConstraints();
 
-        c.insets = new Insets(0,10,25, 0);
+        c.insets = new Insets(0, 10, 25, 0);
 
         c.gridy = 6;
         c.gridx = 0;
@@ -78,9 +78,9 @@ public class PanelAdd extends PanelSaisie {
     private void ajouterCommutateur() {
         if (!nom.getText().equals("")) {
             boolean estAdd;
-            if(estCommutateur.isSelected()){
+            if (estCommutateur.isSelected()) {
                 estAdd = ihm.getReseau().ajouterCommutateur(new Commutateur(nom.getText()));
-            }else{
+            } else {
                 estAdd = ihm.getReseau().ajouterMachine(new Machine(nom.getText()));
             }
 
@@ -92,6 +92,9 @@ public class PanelAdd extends PanelSaisie {
                         "Élément existant",
                         JOptionPane.ERROR_MESSAGE);
             }
+        } else {
+            alertEstVide("nom");
         }
     }
 }
+

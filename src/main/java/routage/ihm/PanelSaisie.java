@@ -33,4 +33,11 @@ public class PanelSaisie extends JPanel {
 
         add(new JLabel(titre), c);
     }
+
+    protected void alertEstVide(String champ){
+        JOptionPane.showMessageDialog(ihm,
+                "Le " + champ + " ne peut pas être vide !",
+                "Champ \"" + champ + "\" vide ",
+                JOptionPane.ERROR_MESSAGE);
+    }
 }
