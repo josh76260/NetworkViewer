@@ -19,7 +19,7 @@ public class PanelSaisie extends JPanel {
      * Contruction du panel de saisie
      *
      * @param titre le titre du panel
-     * @param ihm la fenêtre parente
+     * @param ihm   la fenêtre parente
      */
     public PanelSaisie(String titre, AffichageReseau ihm) {
         super(new GridBagLayout());
@@ -34,7 +34,12 @@ public class PanelSaisie extends JPanel {
         add(new JLabel(titre), c);
     }
 
-    protected void alertEstVide(String champ){
+    /**
+     * Méthode permettant d'afficher une boîte de dialogue lorsqu'une saisie est vide
+     *
+     * @param champ le champ qui est vide
+     */
+    protected void alertEstVide(String champ) {
         JOptionPane.showMessageDialog(ihm,
                 "Le " + champ + " ne peut pas être vide !",
                 "Champ \"" + champ + "\" vide ",

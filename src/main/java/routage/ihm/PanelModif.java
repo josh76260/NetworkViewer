@@ -6,12 +6,38 @@ import routage.metier.Liaison;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel permettant de modifier un élément
+ *
+ * @author Joshua Galien
+ */
 public class PanelModif extends PanelSaisie {
+    /**
+     * Champ de saisie pour le nom
+     */
     private final JTextField nom;
+
+    /**
+     * liste déroulante pour les éléments voisins
+     */
     private final JComboBox<Liable> lDest;
+
+    /**
+     * Champ de saisie pour le poids
+     */
     private final JTextField poids;
+
+    /**
+     * Élément selectionné que l'on va modifier
+     */
     private final Liable selected;
 
+    /**
+     * Constructeur
+     *
+     * @param ihm fenêtre parente
+     * @param selected l'élément sélectionné
+     */
     public PanelModif(AffichageReseau ihm, Liable selected) {
         super("Modification d'un élément", ihm);
 
@@ -69,6 +95,9 @@ public class PanelModif extends PanelSaisie {
         setVisible(true);
     }
 
+    /**
+     * Méthode permettant de mettre à jour l'élément sélectionné
+     */
     private void modifierElement() {
 
         if (!poids.getText().equals("")) {
@@ -98,6 +127,9 @@ public class PanelModif extends PanelSaisie {
     }
 
 
+    /**
+     * Met à jour le poids en fonction de la destination sélectionnée
+     */
     private void modifPoids() {
         Liaison l = Liaison.getLiaisonEntre(selected, ((Liable) lDest.getSelectedItem()));
         poids.setText(l.getPoids() + "");
