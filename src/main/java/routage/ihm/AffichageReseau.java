@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -62,7 +63,7 @@ public class AffichageReseau extends JFrame {
      * Constructeur de la fenêtre
      */
     public AffichageReseau() {
-        css = "url(" + this.getClass().getClassLoader().getResource("css.css").toString() + ")";
+        css = "url(" + Objects.requireNonNull(this.getClass().getClassLoader().getResource("css.css")).toString() + ")";
 
         setTitle("Affichage du réseau");
         charger(getClass().getClassLoader().getResourceAsStream("reseau.data"));
@@ -241,7 +242,6 @@ public class AffichageReseau extends JFrame {
      * Initialisation du graphe représentant le réseau
      */
     private void initGraphe() {
-        System.setProperty("org.graphstream.ui", "swing");
         graph = new SingleGraph("reseau");
         graph.setAttribute("ui.stylesheet", css);
         graph.setAttribute("ui.antialias");

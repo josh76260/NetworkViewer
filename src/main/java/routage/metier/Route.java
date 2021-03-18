@@ -5,7 +5,7 @@ package routage.metier;
  *
  * @author Joshua Galien
  */
-public class Route implements Comparable {
+public class Route implements Comparable<Route> {
 
     /**
      * Destination de la route
@@ -95,7 +95,9 @@ public class Route implements Comparable {
     }
 
     @Override
-    public int compareTo(Object autre) {
-        return this.dest.getNom().compareTo(((Route) autre).dest.getNom());
+    public int compareTo(Route autre) {
+        return this.dest.getNom().compareTo(autre.dest.getNom()) != 0 ?
+                this.dest.getNom().compareTo(autre.dest.getNom()) : this.poids - autre.poids;
     }
 }
+
