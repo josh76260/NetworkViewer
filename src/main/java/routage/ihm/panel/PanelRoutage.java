@@ -1,4 +1,4 @@
-package routage.ihm;
+package routage.ihm.panel;
 
 import routage.metier.Commutateur;
 import routage.metier.Route;

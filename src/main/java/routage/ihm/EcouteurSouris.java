@@ -4,6 +4,8 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.util.InteractiveElement;
+import routage.ihm.panel.PanelModif;
+import routage.ihm.panel.PanelRoutage;
 import routage.metier.Commutateur;
 import routage.metier.Reseau;
 

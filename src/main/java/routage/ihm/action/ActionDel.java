@@ -1,7 +1,7 @@
 package routage.ihm.action;
 
 import routage.ihm.AffichageReseau;
-import routage.ihm.PanelDel;
+import routage.ihm.panel.PanelDel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

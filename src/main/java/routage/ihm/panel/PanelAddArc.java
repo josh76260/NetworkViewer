@@ -1,5 +1,6 @@
-package routage.ihm;
+package routage.ihm.panel;
 
+import routage.ihm.AffichageReseau;
 import routage.metier.Liable;
 import routage.metier.Liaison;
 import routage.metier.Machine;

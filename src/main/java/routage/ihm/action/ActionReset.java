@@ -1,7 +1,7 @@
 package routage.ihm.action;
 
 import routage.ihm.AffichageReseau;
-import routage.ihm.PanelSaisie;
+import routage.ihm.panel.PanelSaisie;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

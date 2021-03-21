@@ -9,6 +9,8 @@ import org.graphstream.ui.swing_viewer.ViewPanel;
 import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.Viewer;
 import routage.ihm.action.*;
+import routage.ihm.panel.PanelRoutage;
+import routage.ihm.panel.PanelSaisie;
 import routage.metier.*;
 
 import javax.swing.*;

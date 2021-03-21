@@ -1,10 +1,11 @@
-package routage.ihm;
+package routage.ihm.panel;
 
 import org.graphstream.algorithm.Dijkstra;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.Path;
+import routage.ihm.AffichageReseau;
 import routage.metier.Machine;
 
 import javax.swing.*;

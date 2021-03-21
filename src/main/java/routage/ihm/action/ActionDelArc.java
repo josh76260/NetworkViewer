@@ -1,7 +1,7 @@
 package routage.ihm.action;
 
 import routage.ihm.AffichageReseau;
-import routage.ihm.PanelDelArc;
+import routage.ihm.panel.PanelDelArc;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
