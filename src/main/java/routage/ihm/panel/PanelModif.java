@@ -102,7 +102,12 @@ public class PanelModif extends PanelSaisie {
     private void modifierElement() {
 
         if (!poids.getText().equals("")) {
-            Liaison.getLiaisonEntre(selected, ((Liable) lDest.getSelectedItem())).setPoids(Integer.parseInt(poids.getText()));
+            if(lDest.getSelectedItem() != null) {
+                Liaison.getLiaisonEntre(selected, ((Liable) lDest.getSelectedItem())).setPoids(Integer.parseInt(poids.getText()));
+            }else{
+                alertEstVide("destination");
+                return;
+            }
         } else {
             alertEstVide("poids");
             return;

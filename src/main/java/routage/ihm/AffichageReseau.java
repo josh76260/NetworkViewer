@@ -19,10 +19,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Fenêtre principale du logiciel
@@ -306,7 +303,8 @@ public class AffichageReseau extends JFrame {
         initGraphe();
         initTabRoute();
         initView();
-        setPanelSaisie(new JPanel());
+        setPanelSaisie(new PanelSaisie("Cliquez sur une action ou sur un élément du graphe", this));
+        setPanelRoutage(new PanelRoutage(new ArrayList<>(), null));
         repaint();
         revalidate();
     }
@@ -369,6 +367,12 @@ public class AffichageReseau extends JFrame {
         }
 
         graph.edges().forEach(e -> e.setAttribute("ui.class", ""));
+    }
+
+    public void resetReseau() {
+        reseau = new Reseau();
+        graph = new SingleGraph("réseau");
+        majIHM();
     }
 }
 

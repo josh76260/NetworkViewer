@@ -21,6 +21,8 @@ public class Menu extends JToolBar {
         super();
         setPreferredSize(new Dimension(parent.getWidth(), 40));
         addSeparator();
+        add(new JButton(new ActionNew(parent)));
+        addSeparator();
         add(new JButton(new ActionLoad(parent)));
         addSeparator();
         add(new JButton(new ActionSave(parent)));

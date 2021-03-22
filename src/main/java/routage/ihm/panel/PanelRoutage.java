@@ -32,7 +32,8 @@ public class PanelRoutage extends JPanel {
      */
     public PanelRoutage(ArrayList<Route> tabRoutage, Commutateur selected) {
         this.tabRoutage = tabRoutage;
-        this.selected = selected;
+        if(selected != null) this.selected = selected;
+        else this.selected = new Commutateur("");
         setPreferredSize(new Dimension(300, 800));
         setVisible(true);
     }
