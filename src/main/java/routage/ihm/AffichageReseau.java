@@ -92,7 +92,12 @@ public class AffichageReseau extends JFrame {
     private void initJMenuBar() {
         JMenuBar jMenuBar = new JMenuBar();
         JMenu fichier = new JMenu("Fichier");
-        JMenuItem jMenuItem = new JMenuItem(new ActionLoad(this));
+
+        JMenuItem jMenuItem = new JMenuItem(new ActionNew(this));
+        jMenuItem.setText("Nouveau");
+        fichier.add(jMenuItem);
+
+        jMenuItem = new JMenuItem(new ActionLoad(this));
         jMenuItem.setText("Charger");
         fichier.add(jMenuItem);
 
